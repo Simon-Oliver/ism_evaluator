@@ -40,3 +40,5 @@ output/
 
 # Keep placeholder directories if needed
 !output/.gitkeep
+data/oscal/*
+!data/oscal/.gitkeep
