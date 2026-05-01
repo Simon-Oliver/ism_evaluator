@@ -1,0 +1,18 @@
+assessment:
+  id: test-assessment-2026
+  type: irap
+
+  system_id: test-system-abc
+  system_name: Test System ABC
+
+  ism_version: "2025-12"
+  assessment_date: "2026-02-10"
+
+  source:
+    file: data/assessments/ssp_annex_test_assessment.csv
+    format: csv
+    control_id_column: ism_control
+    rating_column: rating
+
+  scope:
+    description: This is a test assessment for system ABC.

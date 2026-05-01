@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Environment and local secrets
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Runtime output
+output/
+*.log
+
+# Local evidence and assessment artifacts
+*.docx
+*.xlsx
+*.xls
+*.pdf
+
+# Keep placeholder directories if needed
+!output/.gitkeep

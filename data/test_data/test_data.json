@@ -1,0 +1,272 @@
+{
+  "metadata": {
+    "environment": "test",
+    "generated_at": "2026-05-01T10:30:00Z",
+    "description": "Dummy test data for local collector testing. Contains fake KQL and Azure Policy compliance results."
+  },
+  "kql": {
+    "recent_signin_activity": {
+      "query_name": "recent_signin_activity",
+      "workspace_id": "00000000-0000-0000-0000-000000000001",
+      "timespan": "P30D",
+      "rows": [
+        {
+          "TimeGenerated": "2026-04-30T23:41:12Z",
+          "UserPrincipalName": "alex.morgan@example.test",
+          "AppDisplayName": "Microsoft Azure PowerShell",
+          "IPAddress": "203.0.113.45",
+          "ResultType": "0",
+          "ResultDescription": "Success",
+          "AuthenticationRequirement": "multiFactorAuthentication",
+          "IsInteractive": true,
+          "ConditionalAccessStatus": "success"
+        },
+        {
+          "TimeGenerated": "2026-04-29T09:12:44Z",
+          "UserPrincipalName": "sarah.chen@example.test",
+          "AppDisplayName": "Office 365 Exchange Online",
+          "IPAddress": "198.51.100.19",
+          "ResultType": "50074",
+          "ResultDescription": "User did not pass the MFA challenge",
+          "AuthenticationRequirement": "multiFactorAuthentication",
+          "IsInteractive": true,
+          "ConditionalAccessStatus": "failure"
+        }
+      ]
+    },
+    "ism_1683_mfa_logging.kql": {
+      "query_name": "mfa_authentication_events",
+      "workspace_id": "00000000-0000-0000-0000-000000000001",
+      "timespan": "P30D",
+      "rows": [
+        {
+          "TimeGenerated": "2026-04-30T08:14:22Z",
+          "Outcome": "Success",
+          "UserPrincipalName": "alex.morgan@example.test",
+          "AppDisplayName": "Azure Portal",
+          "ResultType": "0",
+          "AuthenticationRequirement": "multiFactorAuthentication"
+        },
+        {
+          "TimeGenerated": "2026-04-28T14:03:17Z",
+          "Outcome": "Failure",
+          "UserPrincipalName": "sarah.chen@example.test",
+          "AppDisplayName": "Microsoft Teams",
+          "ResultType": "50074",
+          "AuthenticationRequirement": "multiFactorAuthentication"
+        },
+        {
+          "TimeGenerated": "2026-04-28T14:03:17Z",
+          "Outcome": "Failure",
+          "UserPrincipalName": "sarah.chen@example.test",
+          "AppDisplayName": "Microsoft Teams",
+          "ResultType": "50074",
+          "AuthenticationRequirement": "multiFactorAuthentication"
+        }
+      ]
+    },
+    "single_factor_authentication_events": {
+      "query_name": "single_factor_authentication_events",
+      "workspace_id": "00000000-0000-0000-0000-000000000001",
+      "timespan": "P30D",
+      "rows": [
+        {
+          "TimeGenerated": "2026-04-21T02:18:41Z",
+          "Outcome": "Success",
+          "UserPrincipalName": "svc-reporting@example.test",
+          "AppDisplayName": "Legacy Reporting Application",
+          "ResultType": "0",
+          "AuthenticationRequirement": "singleFactorAuthentication",
+          "IsInteractive": false
+        },
+        {
+          "TimeGenerated": "2026-04-20T17:33:06Z",
+          "Outcome": "Failure",
+          "UserPrincipalName": "svc-backup@example.test",
+          "AppDisplayName": "Backup Connector",
+          "ResultType": "50126",
+          "AuthenticationRequirement": "singleFactorAuthentication",
+          "IsInteractive": false
+        }
+      ]
+    },
+    "privileged_role_changes": {
+      "query_name": "privileged_role_changes",
+      "workspace_id": "00000000-0000-0000-0000-000000000001",
+      "timespan": "P30D",
+      "rows": [
+        {
+          "TimeGenerated": "2026-04-27T04:22:10Z",
+          "OperationName": "Add member to role",
+          "Category": "RoleManagement",
+          "Result": "success",
+          "InitiatedBy": "admin.one@example.test",
+          "TargetUserPrincipalName": "jordan.lee@example.test",
+          "RoleName": "Privileged Role Administrator"
+        },
+        {
+          "TimeGenerated": "2026-04-23T01:09:54Z",
+          "OperationName": "Remove member from role",
+          "Category": "RoleManagement",
+          "Result": "success",
+          "InitiatedBy": "admin.two@example.test",
+          "TargetUserPrincipalName": "casey.nguyen@example.test",
+          "RoleName": "Global Reader"
+        }
+      ]
+    },
+    "log_source_health": {
+      "query_name": "log_source_health",
+      "workspace_id": "00000000-0000-0000-0000-000000000001",
+      "timespan": "P24H",
+      "rows": [
+        {
+          "TableName": "SigninLogs",
+          "LastSeen": "2026-05-01T00:12:33Z",
+          "RecordCount": 1842,
+          "Status": "Healthy"
+        },
+        {
+          "TableName": "AuditLogs",
+          "LastSeen": "2026-04-30T23:58:11Z",
+          "RecordCount": 392,
+          "Status": "Healthy"
+        },
+        {
+          "TableName": "AzureActivity",
+          "LastSeen": "2026-04-30T22:44:02Z",
+          "RecordCount": 126,
+          "Status": "Healthy"
+        },
+        {
+          "TableName": "SecurityAlert",
+          "LastSeen": "2026-04-29T19:03:40Z",
+          "RecordCount": 7,
+          "Status": "Warning"
+        }
+      ]
+    }
+  },
+  "azure_policy": {
+    "storage_accounts_secure_transfer": {
+      "policy_assignment_id": "/subscriptions/11111111-1111-1111-1111-111111111111/providers/Microsoft.Authorization/policyAssignments/storage-secure-transfer",
+      "policy_definition_id": "/providers/Microsoft.Authorization/policyDefinitions/404c3081-a854-4457-ae30-26a93ef643f9",
+      "policy_definition_name": "Storage accounts should require secure transfer",
+      "policy_display_name": "Secure transfer to storage accounts should be enabled",
+      "scope": "/subscriptions/11111111-1111-1111-1111-111111111111",
+      "compliance_state": "Compliant",
+      "resource_count": 12,
+      "compliant_resources": 12,
+      "non_compliant_resources": 0,
+      "exempt_resources": 0,
+      "not_applicable_resources": 0,
+      "last_evaluated": "2026-04-30T18:21:33Z",
+      "resources": [
+        {
+          "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-prod-data/providers/Microsoft.Storage/storageAccounts/prodstorage001",
+          "resource_type": "Microsoft.Storage/storageAccounts",
+          "resource_location": "australiaeast",
+          "compliance_state": "Compliant",
+          "reason": "supportsHttpsTrafficOnly is enabled"
+        },
+        {
+          "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-dev-data/providers/Microsoft.Storage/storageAccounts/devstorage001",
+          "resource_type": "Microsoft.Storage/storageAccounts",
+          "resource_location": "australiaeast",
+          "compliance_state": "Compliant",
+          "reason": "supportsHttpsTrafficOnly is enabled"
+        }
+      ]
+    },
+    "key_vault_soft_delete": {
+      "policy_assignment_id": "/subscriptions/11111111-1111-1111-1111-111111111111/providers/Microsoft.Authorization/policyAssignments/keyvault-soft-delete",
+      "policy_definition_id": "/providers/Microsoft.Authorization/policyDefinitions/1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d",
+      "policy_definition_name": "Key vaults should have soft delete enabled",
+      "policy_display_name": "Key vaults should have soft delete enabled",
+      "scope": "/subscriptions/11111111-1111-1111-1111-111111111111",
+      "compliance_state": "NonCompliant",
+      "resource_count": 4,
+      "compliant_resources": 3,
+      "non_compliant_resources": 1,
+      "exempt_resources": 0,
+      "not_applicable_resources": 0,
+      "last_evaluated": "2026-04-30T18:25:10Z",
+      "resources": [
+        {
+          "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-prod-sec/providers/Microsoft.KeyVault/vaults/prod-kv-001",
+          "resource_type": "Microsoft.KeyVault/vaults",
+          "resource_location": "australiaeast",
+          "compliance_state": "Compliant",
+          "reason": "softDeleteRetentionInDays is configured"
+        },
+        {
+          "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-legacy/providers/Microsoft.KeyVault/vaults/legacy-kv-001",
+          "resource_type": "Microsoft.KeyVault/vaults",
+          "resource_location": "australiasoutheast",
+          "compliance_state": "NonCompliant",
+          "reason": "Soft delete setting could not be confirmed"
+        }
+      ]
+    },
+    "defender_for_servers_enabled": {
+      "policy_assignment_id": "/providers/Microsoft.Management/managementGroups/mg-platform/providers/Microsoft.Authorization/policyAssignments/defender-for-servers",
+      "policy_definition_id": "/providers/Microsoft.Authorization/policyDefinitions/44452482-524f-4bf4-b852-0bff7cc4a3ed",
+      "policy_definition_name": "Microsoft Defender for servers should be enabled",
+      "policy_display_name": "Microsoft Defender for servers should be enabled",
+      "scope": "/providers/Microsoft.Management/managementGroups/mg-platform",
+      "compliance_state": "Compliant",
+      "resource_count": 3,
+      "compliant_resources": 3,
+      "non_compliant_resources": 0,
+      "exempt_resources": 0,
+      "not_applicable_resources": 0,
+      "last_evaluated": "2026-04-30T18:33:44Z",
+      "resources": [
+        {
+          "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111",
+          "resource_type": "Microsoft.Resources/subscriptions",
+          "resource_location": "global",
+          "compliance_state": "Compliant",
+          "reason": "Defender for Servers plan is enabled"
+        }
+      ]
+    },
+    "diagnostic_settings_to_log_analytics": {
+      "policy_assignment_id": "/providers/Microsoft.Management/managementGroups/mg-platform/providers/Microsoft.Authorization/policyAssignments/diagnostic-settings-law",
+      "policy_definition_id": "/providers/Microsoft.Authorization/policyDefinitions/audit-diagnostic-settings-example",
+      "policy_definition_name": "Resources should send diagnostic logs to Log Analytics",
+      "policy_display_name": "Diagnostic logs should be sent to a Log Analytics workspace",
+      "scope": "/providers/Microsoft.Management/managementGroups/mg-platform",
+      "compliance_state": "NonCompliant",
+      "resource_count": 24,
+      "compliant_resources": 19,
+      "non_compliant_resources": 4,
+      "exempt_resources": 1,
+      "not_applicable_resources": 0,
+      "last_evaluated": "2026-04-30T18:40:01Z",
+      "resources": [
+        {
+          "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-prod-app/providers/Microsoft.Web/sites/prod-api-001",
+          "resource_type": "Microsoft.Web/sites",
+          "resource_location": "australiaeast",
+          "compliance_state": "Compliant",
+          "reason": "Diagnostic setting sends logs to central Log Analytics workspace"
+        },
+        {
+          "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-dev-app/providers/Microsoft.Web/sites/dev-api-001",
+          "resource_type": "Microsoft.Web/sites",
+          "resource_location": "australiaeast",
+          "compliance_state": "NonCompliant",
+          "reason": "No diagnostic setting found"
+        },
+        {
+          "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-test/providers/Microsoft.KeyVault/vaults/test-kv-001",
+          "resource_type": "Microsoft.KeyVault/vaults",
+          "resource_location": "australiaeast",
+          "compliance_state": "Exempt",
+          "reason": "Temporary exemption approved for non-production testing"
+        }
+      ]
+    }
+  }
+}

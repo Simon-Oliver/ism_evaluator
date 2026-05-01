@@ -1,0 +1,9 @@
+manual_evidence:
+  - id: MAN-TEST-SOP
+    title: Test SOP
+    location: test_sop.docx
+    owner: Security Team
+    verification_status: human_reviewed
+    last_reviewed: "2026-04-20"
+    reviewed_by: analyst.name
+    coverage: Test process

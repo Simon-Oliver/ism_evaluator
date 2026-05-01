@@ -1,0 +1,33 @@
+evidence_definitions:
+  - id: CHECK-ISM-1683-KQL-MFA-LOGGING
+    control_id: ISM-1683
+    applies_to_ism_version: "2025-02"
+    type: kql
+    claim: MFA success and failure events are present in centralised sign-in logs.
+    source:
+      workspace: test_data
+      query_file: queries/ism_1683_mfa_logging.kql
+    evaluation:
+      mode: all
+      assertions:
+        - type: result_field_contains_all
+          field: Outcome
+          values:
+            - Success
+            - Failure
+        - type: result_minimum_rows
+          count: 2
+  - id: CHECK-ISM-1683-MANUAL-TEST-SOP
+    control_id: ISM-1683
+    applies_to_ism_version: "2025-02"
+    type: manual_reference
+    claim: A documented process.
+    source:
+      evidence_register_id: MAN-TEST-SOP
+    evaluation:
+      mode: all
+      assertions:
+        - type: manual_status_in
+          values:
+            - human_reviewed
+            - verified
