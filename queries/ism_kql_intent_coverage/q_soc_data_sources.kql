@@ -1,0 +1,4 @@
+union isfuzzy=true SigninLogs, AuditLogs, AzureActivity, SecurityAlert, SecurityIncident, SecurityEvent, WindowsEvent, Syslog, AzureDiagnostics, CommonSecurityLog, Heartbeat
+| where TimeGenerated > ago(7d)
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type
+| order by Events desc

@@ -1,0 +1,4 @@
+union isfuzzy=true AzureDiagnostics, CommonSecurityLog, Syslog
+| where TimeGenerated > ago(7d)
+| where tostring(pack_all()) has_any ("DHCP", "DNS", "IPv6", "lease")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type, Source=tostring(column_ifexists("SourceSystem", ""))

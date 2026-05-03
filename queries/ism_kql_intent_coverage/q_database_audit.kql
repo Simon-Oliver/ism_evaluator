@@ -1,0 +1,4 @@
+AzureDiagnostics
+| where TimeGenerated > ago(14d)
+| where Category has_any ("SQLSecurityAuditEvents", "PostgreSQLLogs", "MySqlAuditLogs") or ResourceProvider has_any ("MICROSOFT.SQL", "MICROSOFT.DBFORPOSTGRESQL", "MICROSOFT.DBFORMYSQL")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Resource, Category, action_name_s=tostring(column_ifexists("action_name_s", ""))

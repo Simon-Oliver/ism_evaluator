@@ -1,0 +1,4 @@
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where ClientAppUsed !in ("Browser", "Mobile Apps and Desktop clients") or AuthenticationRequirement !~ "multiFactorAuthentication"
+| summarize Events=count(), LastSeen=max(TimeGenerated) by ClientAppUsed, AuthenticationRequirement, AppDisplayName

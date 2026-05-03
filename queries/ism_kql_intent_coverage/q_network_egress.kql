@@ -1,0 +1,4 @@
+union isfuzzy=true AzureDiagnostics, CommonSecurityLog
+| where TimeGenerated > ago(14d)
+| extend Destination = case(isnotempty(tostring(column_ifexists("DestinationHostName", ""))), tostring(column_ifexists("DestinationHostName", "")), isnotempty(tostring(column_ifexists("DestinationIP", ""))), tostring(column_ifexists("DestinationIP", "")), isnotempty(tostring(column_ifexists("DestinationDnsDomain", ""))), tostring(column_ifexists("DestinationDnsDomain", "")), "unknown")
+| summarize Events=count(), Denied=countif(tostring(pack_all()) has_any ("Deny", "Blocked", "Reject")), LastSeen=max(TimeGenerated) by Type, Destination

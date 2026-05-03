@@ -1,0 +1,4 @@
+union isfuzzy=true AzureDiagnostics, SecurityRecommendation
+| where TimeGenerated > ago(30d)
+| where ResourceProvider has_any ("MICROSOFT.SQL", "MICROSOFT.DBFORPOSTGRESQL", "MICROSOFT.DBFORMYSQL") or tostring(pack_all()) has_any ("database", "SQL")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type, Resource=tostring(column_ifexists("Resource", column_ifexists("AssessedResourceId", "")))

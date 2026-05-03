@@ -1,0 +1,4 @@
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where UserPrincipalName !has "admin" and UserPrincipalName !has "priv"
+| summarize Events=count(), LastSeen=max(TimeGenerated) by AppDisplayName, ResultType

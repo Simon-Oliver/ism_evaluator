@@ -1,0 +1,5 @@
+let BreakGlassTerms=dynamic(["breakglass", "break-glass", "emergency"]);
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where UserPrincipalName has_any (BreakGlassTerms) or Identity has_any (BreakGlassTerms)
+| summarize SignIns=count(), Failures=countif(ResultType != 0), LastUse=max(TimeGenerated) by UserPrincipalName, AppDisplayName

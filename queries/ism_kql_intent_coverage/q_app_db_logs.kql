@@ -1,0 +1,4 @@
+AzureDiagnostics
+| where TimeGenerated > ago(7d)
+| where tostring(pack_all()) has_any ("sql", "database", "query", "deadlock", "permission", "login failed", "syntax", "exception")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Resource, Category

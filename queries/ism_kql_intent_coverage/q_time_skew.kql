@@ -1,0 +1,4 @@
+union isfuzzy=true Heartbeat, SecurityEvent, WindowsEvent, Syslog, AzureDiagnostics
+| where TimeGenerated > ago(24h)
+| extend IngestionDelayMinutes = datetime_diff("minute", ingestion_time(), TimeGenerated)
+| summarize Events=count(), P95IngestionDelay=percentile(IngestionDelayMinutes, 95), MinEventTime=min(TimeGenerated), MaxEventTime=max(TimeGenerated) by Type, bin(TimeGenerated, 1h)

@@ -1,0 +1,2548 @@
+# Review draft in the same schema as config/evidence_definitions.yaml.
+# Replace REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID before promoting entries.
+# Assertion values of 1 are review defaults for minimum evidence volume and should be tuned per environment/control.
+# These assertions check whether the associated KQL returned the expected evidence signal; they are not a final compliance decision without control-specific review.
+
+evidence_definitions:
+- id: CHECK-ISM-0109-KQL-LOG-SOURCE
+  control_id: ISM-0109
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Workstation event rows show workstation telemetry is reaching the LAW for monitoring.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_source.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-0120-KQL-SOC-DATA-SOURCES
+  control_id: ISM-0120
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Presence of identity, endpoint, cloud activity, alert and incident data shows analysts have usable IOC evidence surfaces.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_soc_data_sources.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-0123-KQL-INCIDENT-WORKFLOW
+  control_id: ISM-0123
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Sentinel incident records with owner/status timestamps provide evidence incidents are routed and acted on.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_incident_workflow.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Incidents
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: Assigned
+      value: 1
+- id: CHECK-ISM-0125-KQL-INCIDENT-REGISTER
+  control_id: ISM-0125
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: SecurityIncident records provide an operational incident register.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_incident_register.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Incidents
+      value: 1
+- id: CHECK-ISM-0298-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-0298
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Vulnerability and recommendation rows show patch status is centrally measured and exceptions are visible.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-0304-KQL-UNSUPPORTED-SOFTWARE
+  control_id: ISM-0304
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unsupported software findings show end-of-support applications are discovered for removal.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unsupported_software.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-0407-KQL-ACCESS-AUDIT
+  control_id: ISM-0407
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: User, group and role assignment audit events show access grant/change/removal is recorded.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_access_audit.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-0414-KQL-UNIQUE-SIGNINS
+  control_id: ISM-0414
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Sign-in records tied to UserPrincipalName/UserId show accountable user identities rather than anonymous access.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unique_signins.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: DistinctUsers
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: DistinctIds
+      value: 1
+- id: CHECK-ISM-0430-KQL-ACCESS-REMOVAL
+  control_id: ISM-0430
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Disable/delete/remove-access audit events show access suspension/removal is observable.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_access_removal.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Removals
+      value: 1
+- id: CHECK-ISM-0445-KQL-PRIVILEGED-ACCOUNTS
+  control_id: ISM-0445
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged role membership and privileged sign-in evidence can detect privileged account use.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_accounts.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-0580-KQL-LOG-SOURCE
+  control_id: ISM-0580
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Log source inventory demonstrates whether logging policy has been implemented as telemetry collection.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_source.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-0582-KQL-WINDOWS-SECURITY-LOGS
+  control_id: ISM-0582
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Windows security events in LAW show security-relevant Windows events are centrally logged.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_windows_security_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-0585-KQL-LOG-FIELD-COMPLETENESS
+  control_id: ISM-0585
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Common event fields show date/time, user/process, event description and host context are captured.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_field_completeness.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: WithUser
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: WithHost
+      value: 1
+- id: CHECK-ISM-0634-KQL-GATEWAY-LOGS
+  control_id: ISM-0634
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Firewall/proxy/network security logs show permitted/denied flows and intrusion alerts are centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_gateway_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: Denied
+      value: 1
+- id: CHECK-ISM-0670-KQL-GATEWAY-LOGS
+  control_id: ISM-0670
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: CDS/gateway security logs in the central workspace provide evidence of centralised gateway logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_gateway_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-0843-KQL-ENDPOINT-CONFIG
+  control_id: ISM-0843
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender secure configuration findings for application control show whether implementation is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-0846-KQL-ENDPOINT-CONFIG
+  control_id: ISM-0846
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Application control bypass/disable findings show whether users are prevented from bypassing controls.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-0917-KQL-MALWARE-RESPONSE
+  control_id: ISM-0917
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Malware alerts and remediation/status fields show malicious-code detection and response activity.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_malware_response.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-0955-KQL-ENDPOINT-CONFIG
+  control_id: ISM-0955
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Application control rule configuration findings show approved rule types are being assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-0974-KQL-MFA-SIGNIN
+  control_id: ISM-0974
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Sign-in records requiring/satisfying MFA show unprivileged MFA is enforced in practice.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_signin.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: MFARequired
+      value: 1
+- id: CHECK-ISM-0988-KQL-TIME-SKEW
+  control_id: ISM-0988
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Clock skew checks across log sources show whether timestamps are consistent enough for event logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_time_skew.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1030-KQL-NIDS-ALERTS
+  control_id: ISM-1030
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Network IDS/firewall alert rows demonstrate contravening traffic generates logs and alerts.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_nids_alerts.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Alerts
+      value: 1
+- id: CHECK-ISM-1173-KQL-MFA-SIGNIN
+  control_id: ISM-1173
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged sign-ins requiring/satisfying MFA show privileged MFA is enforced in practice.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_signin.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: MFARequired
+      value: 1
+- id: CHECK-ISM-1175-KQL-PRIVILEGED-INTERNET
+  control_id: ISM-1175
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged account web/network activity can identify whether privileged accounts are reaching internet services.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_internet.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1228-KQL-ALERT-ANALYSIS
+  control_id: ISM-1228
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Security alerts/incidents created from events show cyber events are analysed into incidents.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_alert_analysis.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Items
+      value: 1
+- id: CHECK-ISM-1234-KQL-EMAIL-SECURITY
+  control_id: ISM-1234
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Email threat events and detections show harmful email content filtering is operating.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_email_security.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1236-KQL-DNS-WEB-BLOCKING
+  control_id: ISM-1236
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: DNS/proxy/firewall deny events for malicious domains show protective blocking is active.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_dns_web_blocking.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Blocks
+      value: 1
+- id: CHECK-ISM-1237-KQL-WEB-PROXY
+  control_id: ISM-1237
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Outbound web proxy/filter events show outbound filtering is observed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_web_proxy.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1243-KQL-DATABASE-INVENTORY
+  control_id: ISM-1243
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: SQL/resource logs or Defender recommendations show database assets are discoverable and assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_database_inventory.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1255-KQL-DATABASE-AUDIT
+  control_id: ISM-1255
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Database audit rows for users/roles/permission changes show access restrictions are monitored.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_database_audit.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1268-KQL-DATABASE-AUDIT
+  control_id: ISM-1268
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Database role and privilege audit events show least-privilege database enforcement is observable.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_database_audit.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1271-KQL-DATABASE-NETWORK
+  control_id: ISM-1271
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Firewall/SQL audit deny events show database network access is restricted to defined sources.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_database_network.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: Denies
+      value: 1
+- id: CHECK-ISM-1277-KQL-DEFENDER-RECOMMENDATION
+  control_id: ISM-1277
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender encryption/TLS findings show whether database communication encryption is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_defender_recommendation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1380-KQL-PRIVILEGED-WORKSTATION
+  control_id: ISM-1380
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged sign-ins by device class show whether privileged activity uses separated admin workstations.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_workstation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1385-KQL-ADMIN-NETWORK
+  control_id: ISM-1385
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Firewall/flow logs for admin network sources show admin infrastructure is segregated.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_admin_network.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1386-KQL-ADMIN-NETWORK
+  control_id: ISM-1386
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Management-plane traffic source logs show management traffic originates from admin infrastructure.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_admin_network.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1387-KQL-BASTION-JUMP
+  control_id: ISM-1387
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Bastion/jump-host sign-ins and connections show administrative sessions transit jump servers.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_bastion_jump.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1403-KQL-AUTH-FAILURES
+  control_id: ISM-1403
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Lockout and repeated failed sign-in events show account lockout controls are active.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_auth_failures.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Failures
+      value: 5
+- id: CHECK-ISM-1404-KQL-INACTIVE-ACCOUNTS
+  control_id: ISM-1404
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Stale enabled accounts from identity/sign-in data show whether inactivity suspension is being enforced.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_inactive_accounts.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_minimum_rows
+      count: 1
+- id: CHECK-ISM-1405-KQL-CENTRALISED-LOGGING
+  control_id: ISM-1405
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Multiple log source types in one LAW show a central event logging facility is implemented.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_centralised_logging.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1416-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1416
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender firewall configuration assessment shows workstation/server software firewall posture.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1417-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1417
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender AV/EDR health and signature findings show antivirus/ransomware protection posture.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1418-KQL-REMOVABLE-MEDIA
+  control_id: ISM-1418
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Device control/removable media events show read access attempts are controlled and logged.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_removable_media.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1427-KQL-GATEWAY-LOGS
+  control_id: ISM-1427
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Firewall logs with spoofing/deny events show ingress traffic filtering is observable.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_gateway_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: Denied
+      value: 1
+- id: CHECK-ISM-1430-KQL-DHCP-DNS-LOGS
+  control_id: ISM-1430
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: DHCP/DNS/IPv6 lease logs show centrally logged address assignment evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_dhcp_dns_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1467-KQL-SOFTWARE-INVENTORY
+  control_id: ISM-1467
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Software inventory versions show whether latest user applications can be assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_software_inventory.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1483-KQL-DEFENDER-RECOMMENDATION
+  control_id: ISM-1483
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender recommendations for server applications show outdated internet-facing services are assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_defender_recommendation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1488-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1488
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Macro-blocking secure configuration findings show macros from internet-origin files are controlled.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1490-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1490
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Application control findings on servers show internet-facing server application control is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1491-KQL-PROCESS-CREATION
+  control_id: ISM-1491
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Process creation events for scripting engines show attempted script execution is observable.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_process_creation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1493-KQL-SOFTWARE-INVENTORY
+  control_id: ISM-1493
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Software inventory rows provide a current software register for patch/vulnerability decisions.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_software_inventory.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1501-KQL-UNSUPPORTED-OS
+  control_id: ISM-1501
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unsupported OS findings show end-of-support operating systems are detected.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unsupported_os.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1504-KQL-MFA-SIGNIN
+  control_id: ISM-1504
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Online service sign-ins requiring/satisfying MFA show MFA coverage for sensitive online services.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_signin.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: MFARequired
+      value: 1
+- id: CHECK-ISM-1505-KQL-MFA-SIGNIN
+  control_id: ISM-1505
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Data repository sign-ins requiring/satisfying MFA show MFA coverage for repositories.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_signin.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: MFARequired
+      value: 1
+- id: CHECK-ISM-1508-KQL-PRIVILEGED-ACCOUNTS
+  control_id: ISM-1508
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged role assignment and usage data shows privileged access can be reviewed for least privilege.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_accounts.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1509-KQL-PRIVILEGED-LOGGING
+  control_id: ISM-1509
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged role assignment, activation and sign-in events show privileged access events are centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_logging.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1536-KQL-APP-DB-LOGS
+  control_id: ISM-1536
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Application/database request and error logs show user-initiated DB queries and failures are centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_app_db_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1537-KQL-DATABASE-AUDIT
+  control_id: ISM-1537
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: SQL audit logs show logons, role changes, DDL and sensitive DB activity are centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_database_audit.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1566-KQL-UNPRIVILEGED-LOGGING
+  control_id: ISM-1566
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Normal user sign-in and access events show unprivileged access is centrally logged.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unprivileged_logging.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1582-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1582
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Application-control audit/assessment rows over time show rulesets are reviewed/validated.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1584-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1584
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Security feature tamper/bypass findings show users are prevented from modifying OS security controls.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1590-KQL-CREDENTIAL-RESET
+  control_id: ISM-1590
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Credential reset/change audit events after risk detections show compromised credentials can be changed and evidenced.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_credential_reset.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1607-KQL-VIRTUALISATION-LOGS
+  control_id: ISM-1607
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Hypervisor/host security and integrity events show virtualisation logging is centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_virtualisation_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1611-KQL-BREAKGLASS-USAGE
+  control_id: ISM-1611
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Break-glass sign-ins are rare, identifiable and reviewable against normal auth failures.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_breakglass_usage.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: SignIns
+      value: 1
+- id: CHECK-ISM-1612-KQL-BREAKGLASS-USAGE
+  control_id: ISM-1612
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Break-glass activity logs show whether emergency accounts are only used for specific activities.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_breakglass_usage.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: SignIns
+      value: 1
+- id: CHECK-ISM-1613-KQL-BREAKGLASS-USAGE
+  control_id: ISM-1613
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Break-glass sign-in and audit logs prove central logging of emergency account use.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_breakglass_usage.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: SignIns
+      value: 1
+- id: CHECK-ISM-1621-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1621
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender configuration findings for PowerShell 2.0 show whether it is disabled/removed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1622-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1622
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: PowerShell language-mode/configuration findings show constrained execution is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1623-KQL-POWERSHELL-LOGS
+  control_id: ISM-1623
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: PowerShell script block/module/transcription events in LAW prove central logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_powershell_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1624-KQL-POWERSHELL-LOGS
+  control_id: ISM-1624
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Protected PowerShell logging evidence shows sensitive script block logs are captured/protected where configured.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_powershell_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1643-KQL-SOFTWARE-INVENTORY
+  control_id: ISM-1643
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Software inventory plus vulnerability rows retain versions and patch history evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_software_inventory.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1647-KQL-PRIVILEGED-RECERT
+  control_id: ISM-1647
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged role assignments older than 12 months can be identified for revalidation.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_recert.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1648-KQL-PRIVILEGED-INACTIVE
+  control_id: ISM-1648
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged accounts inactive for 45 days can be detected.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_inactive.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_minimum_rows
+      count: 1
+- id: CHECK-ISM-1650-KQL-PRIVILEGED-LOGGING
+  control_id: ISM-1650
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged group and role management AuditLogs show centralised privileged management events.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_logging.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1656-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1656
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Application control findings on non-internet-facing servers show control coverage is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1657-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1657
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Application control policy findings show executable/script/installer restrictions are assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1658-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1658
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Driver control findings show driver execution restrictions are assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1660-KQL-APPLICATION-CONTROL-LOGS
+  control_id: ISM-1660
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Allowed/blocked app-control events in Defender show centralised logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_application_control_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1679-KQL-MFA-SIGNIN
+  control_id: ISM-1679
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Third-party app sign-ins requiring/satisfying MFA show MFA is enforced for external services integrated with Entra.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_signin.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: MFARequired
+      value: 1
+- id: CHECK-ISM-1680-KQL-MFA-SIGNIN
+  control_id: ISM-1680
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: MFA evidence for non-sensitive third-party services shows available MFA is used.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_signin.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: MFARequired
+      value: 1
+- id: CHECK-ISM-1681-KQL-MFA-SIGNIN
+  control_id: ISM-1681
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Customer-service sign-ins requiring/satisfying MFA show customer MFA enforcement where logs are integrated.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_signin.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: MFARequired
+      value: 1
+- id: CHECK-ISM-1682-KQL-PHISH-RESISTANT-MFA
+  control_id: ISM-1682
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Authentication method details show whether phishing-resistant methods are used.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_phish_resistant_mfa.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: PhishResistant
+      value: 1
+- id: CHECK-ISM-1683-KQL-MFA-SIGNIN
+  control_id: ISM-1683
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Successful and failed MFA sign-in events in SigninLogs show centralised MFA event logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_signin.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: MFARequired
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: Failures
+      value: 1
+- id: CHECK-ISM-1686-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1686
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Credential Guard secure configuration findings show credential protection posture.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1688-KQL-PRIVILEGED-WORKSTATION
+  control_id: ISM-1688
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Logons to admin workstations by non-admin accounts show separation violations.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_workstation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1689-KQL-PRIVILEGED-WORKSTATION
+  control_id: ISM-1689
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged account logons to non-admin devices show separation violations.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_workstation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1690-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1690
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Online-service vulnerability findings older than two weeks show whether non-critical mitigation deadlines are being
+    met.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1691-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1691
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: User-application vulnerability age/severity shows two-week patch intent coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1692-KQL-VULN-PATCH-CRITICAL
+  control_id: ISM-1692
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Critical/exploited user-application vulnerabilities older than 48 hours show deadline failures.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_critical.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1693-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1693
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Other application vulnerability age shows one-month patch intent coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1694-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1694
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Internet-facing OS vulnerability age shows two-week non-critical patch coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1695-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1695
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Workstation/non-internet-facing OS vulnerability age shows one-month patch coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1696-KQL-VULN-PATCH-CRITICAL
+  control_id: ISM-1696
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Critical/exploited OS vulnerabilities older than 48 hours show deadline failures.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_critical.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1697-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1697
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Driver vulnerability age shows one-month patch coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1698-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1698
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Daily vulnerability rows for online services show scanner cadence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1699-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1699
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Recent vulnerability rows for user applications show at least weekly scanning evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1700-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1700
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Recent vulnerability rows for other applications show fortnightly scanning evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1701-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1701
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Daily vulnerability rows for internet-facing OS/network devices show scanner cadence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1702-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1702
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Recent vulnerability rows for workstations and non-internet-facing systems show fortnightly scanning.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1703-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1703
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Recent vulnerability rows for drivers show fortnightly scanning evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1704-KQL-UNSUPPORTED-SOFTWARE
+  control_id: ISM-1704
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unsupported high-risk user applications are visible for removal tracking.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unsupported_software.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1745-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1745
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Secure Boot/Measured Boot configuration findings show boot security posture.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1749-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1749
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Cached credential configuration findings show cached credential limits are assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1751-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1751
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Other IT equipment OS vulnerabilities show one-month non-critical patch tracking.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1752-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1752
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Other IT equipment vulnerability rows show fortnightly scan evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1753-KQL-UNSUPPORTED-NETWORK
+  control_id: ISM-1753
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unsupported internet-facing network device findings show replacement need is detected.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unsupported_network.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1782-KQL-DNS-WEB-BLOCKING
+  control_id: ISM-1782
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Protective DNS events blocking malicious domains show the service is in use.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_dns_web_blocking.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Blocks
+      value: 1
+- id: CHECK-ISM-1807-KQL-ASSET-DISCOVERY
+  control_id: ISM-1807
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: New device/resource inventory rows show automated asset discovery cadence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_asset_discovery.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1808-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1808
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Recent Defender TVM findings imply an up-to-date scanner/vulnerability knowledge base is operating.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1809-KQL-DEFENDER-RECOMMENDATION
+  control_id: ISM-1809
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unsupported asset recommendations plus compensating-control tags/exemptions show exceptions are tracked.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_defender_recommendation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1815-KQL-LOG-TAMPER
+  control_id: ISM-1815
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: LAW/AzureActivity operations on workspaces/tables show attempts to modify or delete logs are monitored.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_tamper.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1819-KQL-INCIDENT-WORKFLOW
+  control_id: ISM-1819
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Incidents moving from New to Active/Closed show the response plan is being enacted operationally.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_incident_workflow.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Incidents
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: Assigned
+      value: 1
+- id: CHECK-ISM-1829-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1829
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender identity/configuration findings for GPP passwords show unsafe password storage is detected.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1830-KQL-AD-SERVER-LOGS
+  control_id: ISM-1830
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: AD DS/AD CS/AD FS/Entra Connect server security events in LAW show central logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_server_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1832-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1832
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Identity security findings for SPNs show account-hardening posture is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1833-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1833
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Identity findings and role data show excessive user privileges are detectable.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1835-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1835
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Sensitive/cannot-be-delegated findings show privileged delegation posture is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1836-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1836
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Kerberos pre-authentication findings show account-hardening posture is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1840-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1840
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Reversible password encryption findings show unsafe account settings are detectable.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1843-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1843
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unconstrained delegation findings identify accounts requiring review/removal.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1845-KQL-ACCESS-REMOVAL
+  control_id: ISM-1845
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Disabled-account group membership changes show account deprovisioning can be evidenced.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_access_removal.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Removals
+      value: 1
+- id: CHECK-ISM-1852-KQL-ACCESS-REVIEW
+  control_id: ISM-1852
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Role assignments and actual sign-in/use patterns show least-privilege access can be reviewed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_access_review.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1875-KQL-CREDENTIAL-EXPOSURE
+  control_id: ISM-1875
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender secret/credential exposure alerts show monthly scanning for cleartext credentials can be evidenced.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_credential_exposure.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1876-KQL-VULN-PATCH-CRITICAL
+  control_id: ISM-1876
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Critical/exploited online service vulnerabilities older than 48 hours show missed mitigation deadlines.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_critical.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1877-KQL-VULN-PATCH-CRITICAL
+  control_id: ISM-1877
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Critical/exploited internet-facing OS/network vulnerabilities older than 48 hours show missed deadlines.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_critical.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1878-KQL-VULN-PATCH-CRITICAL
+  control_id: ISM-1878
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Critical/exploited other IT equipment OS vulnerabilities older than 48 hours show missed deadlines.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_critical.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1879-KQL-VULN-PATCH-CRITICAL
+  control_id: ISM-1879
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Critical/exploited driver vulnerabilities older than 48 hours show missed deadlines.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_critical.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1889-KQL-PROCESS-CREATION
+  control_id: ISM-1889
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Command-line process creation events show central logging of shell activity.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_process_creation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1894-KQL-PHISH-RESISTANT-MFA
+  control_id: ISM-1894
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Data repository sign-ins using phishing-resistant auth methods show stronger MFA intent coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_phish_resistant_mfa.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: PhishResistant
+      value: 1
+- id: CHECK-ISM-1895-KQL-SIGNIN-LOGGING
+  control_id: ISM-1895
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Successful and failed single-factor sign-ins show centralised authentication event logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_signin_logging.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Success
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: Failure
+      value: 1
+- id: CHECK-ISM-1897-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1897
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Remote Credential Guard findings show remote credential protection posture.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1898-KQL-PRIVILEGED-WORKSTATION
+  control_id: ISM-1898
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Privileged admin activity from secure admin workstation device groups shows SAW usage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_workstation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1899-KQL-ADMIN-NETWORK
+  control_id: ISM-1899
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Network flow logs showing blocked inbound attempts to admin infrastructure show segregation.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_admin_network.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1900-KQL-VULN-SCAN-CADENCE
+  control_id: ISM-1900
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Firmware vulnerability rows show fortnightly firmware scanning evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_scan_cadence.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1901-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1901
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Non-critical user-application vulnerability age shows two-week patch coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1902-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1902
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Non-critical workstation/non-facing OS vulnerability age shows one-month patch coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1903-KQL-VULN-PATCH-CRITICAL
+  control_id: ISM-1903
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Critical/exploited firmware vulnerabilities older than 48 hours show missed deadlines.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_critical.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1904-KQL-VULN-PATCH-POSTURE
+  control_id: ISM-1904
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Non-critical firmware vulnerability age shows one-month patch coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_vuln_patch_posture.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1905-KQL-UNSUPPORTED-SOFTWARE
+  control_id: ISM-1905
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unsupported online service findings show removal/replacement need is detected.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unsupported_software.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1906-KQL-LOG-SOURCE
+  control_id: ISM-1906
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Internet-facing server event rows show those logs are available for timely analysis.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_source.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1907-KQL-LOG-SOURCE
+  control_id: ISM-1907
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Non-internet-facing server event rows show those logs are available for timely analysis.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_source.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1910-KQL-APP-API-LOGS
+  control_id: ISM-1910
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: API request logs for modifying/sensitive API calls show central logging of high-risk API use.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_app_api_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1911-KQL-APP-API-LOGS
+  control_id: ISM-1911
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Security-relevant application usage/error/crash logs show software event logging is centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_app_api_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1919-KQL-LEGACY-AUTH
+  control_id: ISM-1919
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Legacy/non-MFA-capable protocol sign-ins show whether weaker protocols are disabled.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_legacy_auth.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1920-KQL-MFA-REGISTRATION
+  control_id: ISM-1920
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: MFA registration events from untrusted devices show whether self-enrolment is controlled.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_mfa_registration.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1921-KQL-EXPLOITED-VULN
+  control_id: ISM-1921
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Known exploited vulnerability findings show compromise likelihood is frequently reassessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_exploited_vuln.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1930-KQL-ENDPOINT-CONFIG
+  control_id: ISM-1930
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender identity/configuration findings for GPP password storage show preventive control coverage.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1934-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1934
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: DCSync permission findings show accounts requiring review/removal are detectable.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1937-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1937
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: sIDHistory findings repeated weekly show account checks are occurring.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1939-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1939
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Highly privileged group membership findings show privileged group size can be minimised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1940-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1940
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Service-account membership in admin groups is visible as a finding.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1941-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1941
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Computer-account membership in privileged groups is visible as a finding.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1952-KQL-AD-ACCOUNT-FINDINGS
+  control_id: ISM-1952
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Hybrid identity findings show privileged account synchronisation can be detected.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ad_account_findings.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1958-KQL-PRIVILEGED-WORKSTATION
+  control_id: ISM-1958
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: DCSync-capable account logons to unprivileged environments show separation violations.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_privileged_workstation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1959-KQL-LOG-FIELD-COMPLETENESS
+  control_id: ISM-1959
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Structured fields across tables show logs are captured in consistent queryable format.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_field_completeness.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: WithUser
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: WithHost
+      value: 1
+- id: CHECK-ISM-1960-KQL-GATEWAY-LOGS
+  control_id: ISM-1960
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Internet-facing network device logs show traffic/security events are available for analysis.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_gateway_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1961-KQL-GATEWAY-LOGS
+  control_id: ISM-1961
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Non-internet-facing network device logs show traffic/security events are available for analysis.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_gateway_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1963-KQL-GATEWAY-LOGS
+  control_id: ISM-1963
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Internet-facing network device security events in LAW show centralised logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_gateway_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1964-KQL-GATEWAY-LOGS
+  control_id: ISM-1964
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Non-internet-facing network device security events in LAW show centralised logging.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_gateway_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1976-KQL-LOG-SOURCE
+  control_id: ISM-1976
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: macOS endpoint events show security-relevant macOS events are centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_source.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1977-KQL-LOG-SOURCE
+  control_id: ISM-1977
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Linux endpoint/syslog events show security-relevant Linux events are centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_source.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1978-KQL-APP-API-LOGS
+  control_id: ISM-1978
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Internet-facing server app logs show security-relevant server application events are centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_app_api_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1979-KQL-APP-API-LOGS
+  control_id: ISM-1979
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Non-internet-facing server app logs show security-relevant server application events are centralised.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_app_api_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1981-KQL-UNSUPPORTED-NETWORK
+  control_id: ISM-1981
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unsupported non-internet-facing network device findings show replacement need is detected.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unsupported_network.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1982-KQL-UNSUPPORTED-NETWORK
+  control_id: ISM-1982
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Unsupported networked IT equipment findings show replacement need is detected.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_unsupported_network.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1983-KQL-INGESTION-LATENCY
+  control_id: ISM-1983
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Ingestion-time delay shows logs arrive soon after events occur.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_ingestion_latency.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1984-KQL-DEFENDER-RECOMMENDATION
+  control_id: ISM-1984
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Defender/Azure recommendations for secure diagnostic transport support encrypted log shipping evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_defender_recommendation.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-1985-KQL-LOG-ACCESS
+  control_id: ISM-1985
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: AzureActivity over LAW permissions shows access to logs is controlled and monitored.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_access.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1986-KQL-LOG-SOURCE
+  control_id: ISM-1986
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Critical server event rows show those logs are available for timely analysis.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_log_source.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1987-KQL-SECURITY-PRODUCT-LOGS
+  control_id: ISM-1987
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Security product logs/alerts in LAW show security product events are analysed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_security_product_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-1988-KQL-RETENTION
+  control_id: ISM-1988
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Rows older than 365 days or workspace retention metadata show searchable 12-month retention evidence.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_retention.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+    - type: result_field_contains_all
+      field: HasSearchable12Months
+      values:
+      - true
+- id: CHECK-ISM-2011-KQL-PHISH-RESISTANT-MFA
+  control_id: ISM-2011
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Sign-ins/auth method details show non-phishing-resistant options are not used by phishing-resistant users.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_phish_resistant_mfa.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: PhishResistant
+      value: 1
+- id: CHECK-ISM-2012-KQL-ENDPOINT-CONFIG
+  control_id: ISM-2012
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Screen-lock configuration findings show inactivity lock posture is assessed.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_endpoint_config.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Findings
+      value: 1
+- id: CHECK-ISM-2017-KQL-DNS-ENCRYPTION
+  control_id: ISM-2017
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: DNS logs/configuration findings show encrypted DNS use where supported.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_dns_encryption.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-2030-KQL-DEVOPS-SECRET-SCANNING
+  control_id: ISM-2030
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Secret-scanning alerts in Defender/DevOps logs show secrets are blocked or detected at commit.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_devops_secret_scanning.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-2051-KQL-APP-API-LOGS
+  control_id: ISM-2051
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Application security logs with user/action/result fields show sufficient event logging for detection.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_app_api_logs.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-2052-KQL-APP-LOG-SENSITIVE-DATA
+  control_id: ISM-2052
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: DLP/Defender findings on logs show sensitive data exposure in logs is monitored.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_app_log_sensitive_data.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-2059-KQL-MALWARE-RESPONSE
+  control_id: ISM-2059
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: File upload malware detections show malicious content scanning before storage/access.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_malware_response.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+- id: CHECK-ISM-2068-KQL-NETWORK-EGRESS
+  control_id: ISM-2068
+  applies_to_ism_version: 2026.03.24
+  type: kql
+  claim: Network flow deny/allow logs show internet connectivity for devices is limited to required destinations.
+  source:
+    workspace: REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID
+    query_file: queries/ism_kql_intent_coverage/q_network_egress.kql
+  evaluation:
+    mode: all
+    assertions:
+    - type: result_numeric_field_sum_gte
+      field: Events
+      value: 1
+    - type: result_numeric_field_sum_gte
+      field: Denied
+      value: 1

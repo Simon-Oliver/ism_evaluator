@@ -1,0 +1,4 @@
+union isfuzzy=true AzureDiagnostics, CommonSecurityLog, AzureActivity
+| where TimeGenerated > ago(14d)
+| where tostring(pack_all()) has_any ("admin", "management", "bastion", "jump", "privileged")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type, Action=tostring(column_ifexists("Action", column_ifexists("ActivityStatusValue", "")))

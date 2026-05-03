@@ -1,0 +1,3 @@
+SecurityIncident
+| where TimeGenerated > ago(90d)
+| summarize Incidents=count(), Assigned=countif(isnotempty(Owner)), Closed=countif(Status =~ "Closed"), LastModified=max(LastModifiedTime) by Severity

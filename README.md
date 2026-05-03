@@ -158,16 +158,19 @@ Current assertion types:
 | --- | --- | --- |
 | `result_field_contains_all` | Check a field across result rows contains required values | `field: Outcome`, `values: [Success, Failure]` |
 | `result_minimum_rows` | Check a result has at least a minimum number of rows | `count: 2` |
+| `result_numeric_field_sum_gte` | Sum a numeric field across result rows and check it meets a minimum | `field: Events`, `value: 1` |
 | `manual_status_in` | Check manual evidence has an accepted verification status | `values: [human_reviewed, verified]` |
-| `field_contains_all` | Advanced generic path-based check | `path: rows[].Outcome` |
-| `value_in` | Advanced generic path-based accepted-value check | `path: verification_status` |
-| `minimum_count` | Advanced generic path-based count check | `path: rows`, `value: 2` |
+| `field_contains_all` | Currently disabled path-based check | `path: rows[].Outcome` |
+| `value_in` | Currently disabled path-based accepted-value check | `path: verification_status` |
+| `minimum_count` | Currently disabled path-based count check | `path: rows`, `value: 2` |
+
+The path-based assertions above are currently commented out in `runner.py`.
 
 The design decision here is to prefer readable, domain-specific assertions for common cases, while keeping generic path-based assertions as an escape hatch for more complex evidence shapes.
 
 ## Path-Based Assertions
 
-The `resolve_path()` helper supports simple dot paths and list expansion using `[]`.
+Path-based assertions are currently disabled in `runner.py`. The commented-out `resolve_path()` helper supported simple dot paths and list expansion using `[]`.
 
 Example:
 
@@ -251,7 +254,19 @@ The evaluator creates a structured finding. A simplified example:
 }
 ```
 
-The current runner prints findings to stdout. The `output/` directory is present but not yet used.
+The current runner prints findings to stdout and writes dashboard-friendly JSON output for each run.
+
+Output is written to:
+
+```text
+output/runs/<run_id>/findings.json
+output/runs/<run_id>/summary.json
+```
+
+- `findings.json` contains the full finding records, including raw evidence and assertion details.
+- `summary.json` contains one flat row per evidence definition, including `run_id`, `control_id`, `definition_id`, `status`, assertion counts, source fields, evidence row count, and error fields.
+
+If collection or evaluation fails for a definition, the runner prints the error during the run and saves an error finding with `status: error`, `error_type`, and `error_message`.
 
 ## Extending the Pipeline
 
@@ -340,7 +355,7 @@ This is still a prototype. Known limitations:
 The next useful hardening steps are:
 
 1. Add schema validation for `evidence_definitions.yaml`.
-2. Add unit tests for `resolve_path()` and each assertion function.
+2. Add unit tests for each enabled assertion function.
 3. Write findings as JSON into `output/`.
 4. Add result statuses such as `error`, `not_collected`, `inconclusive`, and `not_applicable`.
 5. Normalize collector outputs into a common evidence envelope.

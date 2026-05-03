@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityAlert, AzureDiagnostics
+| where TimeGenerated > ago(30d)
+| where tostring(pack_all()) has_any ("Email", "Malware", "Phish", "Spam", "Spoof", "DMARC", "SPF", "DKIM", "Blocked", "Quarantine")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type

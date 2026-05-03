@@ -1,0 +1,4 @@
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName has_any ("Add user", "Update user", "Delete user", "Add member", "Remove member", "Add app role assignment", "Remove app role assignment")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by OperationName, Result

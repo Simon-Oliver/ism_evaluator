@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityEvent, WindowsEvent
+| where TimeGenerated > ago(14d)
+| where EventID in (4103, 4104, 4688) or tostring(pack_all()) has_any ("PowerShell", "ScriptBlock", "ModuleLogging", "Transcription")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type, Computer=tostring(column_ifexists("Computer", "")), EventID

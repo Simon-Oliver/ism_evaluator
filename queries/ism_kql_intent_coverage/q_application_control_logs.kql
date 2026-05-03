@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityEvent, WindowsEvent
+| where TimeGenerated > ago(14d)
+| where EventID in (8002, 8003, 8004, 8005, 8006, 8007, 3076, 3077) or Source has_any ("AppLocker", "CodeIntegrity")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Computer, EventID, Source

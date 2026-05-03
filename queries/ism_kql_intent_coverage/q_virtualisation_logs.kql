@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityEvent, WindowsEvent, Syslog, AzureDiagnostics
+| where TimeGenerated > ago(14d)
+| where tostring(pack_all()) has_any ("Hyper-V", "VMware", "virtualization", "hypervisor", "integrity")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type, Computer=tostring(column_ifexists("Computer", ""))

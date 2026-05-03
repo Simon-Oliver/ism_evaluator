@@ -1,0 +1,5 @@
+AuditLogs
+| where TimeGenerated > ago(400d)
+| where OperationName has_any ("Access review", "Review completed", "Add eligible member", "Add member", "Add app role assignment")
+| summarize FirstSeen=min(TimeGenerated), LastSeen=max(TimeGenerated), Events=count() by OperationName, TargetResources
+| extend NeedsInventoryCheck = FirstSeen < ago(365d) and OperationName !has "review"

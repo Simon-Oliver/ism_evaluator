@@ -1,0 +1,5 @@
+SigninLogs
+| where TimeGenerated > ago(180d)
+| where UserPrincipalName has_any ("admin", "priv")
+| summarize LastSignIn=max(TimeGenerated) by UserPrincipalName
+| where LastSignIn < ago(45d)

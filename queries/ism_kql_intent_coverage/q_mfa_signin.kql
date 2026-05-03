@@ -1,0 +1,3 @@
+SigninLogs
+| where TimeGenerated > ago(30d)
+| summarize SignIns=count(), MFARequired=countif(AuthenticationRequirement =~ "multiFactorAuthentication"), Failures=countif(ResultType != 0), LastSeen=max(TimeGenerated) by AppDisplayName

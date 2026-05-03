@@ -1,0 +1,4 @@
+union isfuzzy=true Heartbeat, AzureActivity
+| where TimeGenerated > ago(14d)
+| extend Asset = case(isnotempty(tostring(column_ifexists("Computer", ""))), tostring(column_ifexists("Computer", "")), isnotempty(tostring(column_ifexists("ResourceGroup", ""))), tostring(column_ifexists("ResourceGroup", "")), "not-host-scoped")
+| summarize LastSeen=max(TimeGenerated), Events=count() by Asset, Type

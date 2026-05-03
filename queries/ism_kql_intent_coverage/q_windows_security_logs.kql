@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityEvent, WindowsEvent
+| where TimeGenerated > ago(7d)
+| where EventID in (4624, 4625, 4672, 4688, 4720, 4726, 4732, 4733, 4740) or Provider has "Security-Auditing"
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Computer, EventID

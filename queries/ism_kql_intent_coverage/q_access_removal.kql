@@ -1,0 +1,4 @@
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName has_any ("Disable account", "Delete user", "Remove member", "Remove app role assignment", "Remove eligible member")
+| summarize Removals=count(), LastRemoval=max(TimeGenerated) by OperationName, Result

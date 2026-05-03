@@ -1,0 +1,4 @@
+union isfuzzy=true AzureDiagnostics, CommonSecurityLog
+| where TimeGenerated > ago(7d)
+| where ResourceProvider has_any ("MICROSOFT.NETWORK", "MICROSOFT.SECURITY") or DeviceVendor has_any ("Microsoft", "Palo Alto", "Fortinet", "Check Point", "Zscaler") or tostring(pack_all()) has_any ("firewall", "proxy", "gateway")
+| summarize Events=count(), Denied=countif(tostring(pack_all()) has_any ("Deny", "Blocked", "Reject")), LastSeen=max(TimeGenerated) by Type, DeviceVendor=tostring(column_ifexists("DeviceVendor", "")), Resource

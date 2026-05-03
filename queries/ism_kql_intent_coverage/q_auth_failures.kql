@@ -1,0 +1,4 @@
+SigninLogs
+| where TimeGenerated > ago(14d)
+| summarize Attempts=count(), Failures=countif(ResultType != 0), LastSeen=max(TimeGenerated) by UserPrincipalName
+| where Failures >= 5

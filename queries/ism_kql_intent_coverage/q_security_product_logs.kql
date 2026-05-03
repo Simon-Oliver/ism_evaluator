@@ -1,0 +1,3 @@
+union isfuzzy=true SecurityAlert, SecurityIncident, SecurityEvent, WindowsEvent, AzureDiagnostics, CommonSecurityLog
+| where TimeGenerated > ago(7d)
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type

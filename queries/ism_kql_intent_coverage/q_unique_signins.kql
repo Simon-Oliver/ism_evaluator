@@ -1,0 +1,3 @@
+SigninLogs
+| where TimeGenerated > ago(30d)
+| summarize SignIns=count(), DistinctUsers=dcount(UserPrincipalName), DistinctIds=dcount(UserId), LastSeen=max(TimeGenerated) by AppDisplayName

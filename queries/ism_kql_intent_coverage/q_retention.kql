@@ -1,0 +1,3 @@
+union isfuzzy=true SigninLogs, AuditLogs, AzureActivity, SecurityEvent, WindowsEvent, Syslog, AzureDiagnostics, CommonSecurityLog
+| summarize OldestEvent=min(TimeGenerated), NewestEvent=max(TimeGenerated), Events=count() by Type
+| extend HasSearchable12Months = OldestEvent < ago(365d)

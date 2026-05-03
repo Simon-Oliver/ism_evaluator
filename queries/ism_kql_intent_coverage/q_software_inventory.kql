@@ -1,0 +1,4 @@
+SecurityRecommendation
+| where TimeGenerated > ago(30d)
+| where RecommendationDisplayName has_any ("software", "update", "patch", "vulnerability", "unsupported", "endpoint")
+| summarize Findings=count(), LastSeen=max(TimeGenerated) by RecommendationDisplayName, RecommendationState

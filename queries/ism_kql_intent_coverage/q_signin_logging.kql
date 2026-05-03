@@ -1,0 +1,3 @@
+SigninLogs
+| where TimeGenerated > ago(30d)
+| summarize SignIns=count(), Success=countif(ResultType == 0), Failure=countif(ResultType != 0), LastSeen=max(TimeGenerated) by AuthenticationRequirement, AppDisplayName

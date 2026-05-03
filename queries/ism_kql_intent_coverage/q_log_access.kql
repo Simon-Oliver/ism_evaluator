@@ -1,0 +1,5 @@
+AzureActivity
+| where TimeGenerated > ago(90d)
+| where ResourceProviderValue =~ "MICROSOFT.OPERATIONALINSIGHTS"
+| where OperationNameValue has_any ("workspaces", "sharedKeys", "tables", "delete", "write", "roleAssignments")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Caller, OperationNameValue, ActivityStatusValue

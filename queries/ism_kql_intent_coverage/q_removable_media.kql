@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityEvent, WindowsEvent
+| where TimeGenerated > ago(30d)
+| where EventID in (4663, 6416) or tostring(pack_all()) has_any ("Removable", "USB", "DeviceControl", "Storage", "Blocked")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type, Computer=tostring(column_ifexists("Computer", "")), EventID

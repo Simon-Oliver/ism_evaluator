@@ -1,0 +1,4 @@
+union isfuzzy=true Heartbeat, SecurityEvent, WindowsEvent, Syslog, AzureActivity, SigninLogs, AuditLogs, AzureDiagnostics
+| where TimeGenerated > ago(7d)
+| extend Host = case(isnotempty(tostring(column_ifexists("Computer", ""))), tostring(column_ifexists("Computer", "")), isnotempty(tostring(column_ifexists("Resource", ""))), tostring(column_ifexists("Resource", "")), "not-host-scoped")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type, Host

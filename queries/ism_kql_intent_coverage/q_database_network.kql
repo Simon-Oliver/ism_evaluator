@@ -1,0 +1,4 @@
+union isfuzzy=true AzureDiagnostics, CommonSecurityLog
+| where TimeGenerated > ago(14d)
+| where tostring(pack_all()) has_any ("sql", "database", "1433", "postgres", "mysql")
+| summarize Events=count(), Denies=countif(tostring(pack_all()) has_any ("Deny", "Blocked", "Reject")), LastSeen=max(TimeGenerated) by Type

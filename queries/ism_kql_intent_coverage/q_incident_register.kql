@@ -1,0 +1,3 @@
+SecurityIncident
+| where TimeGenerated > ago(180d)
+| summarize Incidents=count(), FirstSeen=min(CreatedTime), LastSeen=max(LastModifiedTime) by Severity, Status

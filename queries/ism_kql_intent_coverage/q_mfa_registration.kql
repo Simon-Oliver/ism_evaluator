@@ -1,0 +1,4 @@
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName has_any ("Register security info", "Update user", "Add authentication method", "User registered security info")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by OperationName, Result

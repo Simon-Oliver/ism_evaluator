@@ -1,0 +1,4 @@
+SigninLogs
+| where TimeGenerated > ago(30d)
+| extend Details=tostring(AuthenticationDetails)
+| summarize SignIns=count(), PhishResistant=countif(Details has_any ("FIDO", "passkey", "Windows Hello", "certificate", "CBA")), NonPhishResistant=countif(AuthenticationRequirement =~ "multiFactorAuthentication" and Details !has_any ("FIDO", "passkey", "Windows Hello", "certificate", "CBA")), LastSeen=max(TimeGenerated) by UserPrincipalName, AppDisplayName

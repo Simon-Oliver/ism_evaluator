@@ -1,0 +1,3 @@
+union isfuzzy=true SecurityAlert, SecurityIncident
+| where TimeGenerated > ago(30d)
+| summarize Items=count(), LastSeen=max(TimeGenerated) by Type, Severity=tostring(column_ifexists("Severity", "")), Status=tostring(column_ifexists("Status", ""))

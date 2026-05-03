@@ -1,0 +1,4 @@
+union isfuzzy=true SigninLogs, AuditLogs, AzureActivity, SecurityEvent, WindowsEvent, Syslog, AzureDiagnostics, CommonSecurityLog
+| where TimeGenerated > ago(24h)
+| extend DelayMinutes = datetime_diff("minute", ingestion_time(), TimeGenerated)
+| summarize P95DelayMinutes=percentile(DelayMinutes, 95), MaxDelayMinutes=max(DelayMinutes), Events=count() by Type

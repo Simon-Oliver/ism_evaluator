@@ -1,0 +1,4 @@
+AzureDiagnostics
+| where TimeGenerated > ago(7d)
+| where Category has_any ("AppServiceHTTPLogs", "AppServiceConsoleLogs", "ApplicationGatewayAccessLog", "ApplicationGatewayFirewallLog") or tostring(pack_all()) has_any ("auth", "authoriz", "permission", "forbidden", "denied", "POST", "PUT", "PATCH", "DELETE")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Resource, Category

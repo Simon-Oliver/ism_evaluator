@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityEvent, WindowsEvent, Event
+| where TimeGenerated > ago(7d)
+| where Computer has_any ("dc", "adfs", "adcs", "entra", "connect") or Source has_any ("Microsoft-Windows-Security-Auditing", "AD FS", "ActiveDirectory")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Computer, Source

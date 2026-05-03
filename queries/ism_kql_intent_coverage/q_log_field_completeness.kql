@@ -1,0 +1,5 @@
+union isfuzzy=true SigninLogs, AuditLogs, AzureActivity, SecurityEvent, WindowsEvent, Syslog, AzureDiagnostics, CommonSecurityLog
+| where TimeGenerated > ago(24h)
+| extend UserField = case(isnotempty(tostring(column_ifexists("UserPrincipalName", ""))), tostring(column_ifexists("UserPrincipalName", "")), isnotempty(tostring(column_ifexists("Account", ""))), tostring(column_ifexists("Account", "")), isnotempty(tostring(column_ifexists("Caller", ""))), tostring(column_ifexists("Caller", "")), "")
+| extend HostField = case(isnotempty(tostring(column_ifexists("Computer", ""))), tostring(column_ifexists("Computer", "")), isnotempty(tostring(column_ifexists("Resource", ""))), tostring(column_ifexists("Resource", "")), isnotempty(tostring(column_ifexists("DeviceAddress", ""))), tostring(column_ifexists("DeviceAddress", "")), "")
+| summarize Events=count(), WithUser=countif(isnotempty(UserField)), WithHost=countif(isnotempty(HostField)), LastSeen=max(TimeGenerated) by Type

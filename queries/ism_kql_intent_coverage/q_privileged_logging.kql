@@ -1,0 +1,5 @@
+union isfuzzy=true AuditLogs, AzureActivity, SigninLogs
+| where TimeGenerated > ago(30d)
+| where tostring(pack_all()) has_any ("role", "privileged", "admin", "Owner", "User Access Administrator")
+| extend Operation = case(isnotempty(tostring(column_ifexists("OperationName", ""))), tostring(column_ifexists("OperationName", "")), isnotempty(tostring(column_ifexists("OperationNameValue", ""))), tostring(column_ifexists("OperationNameValue", "")), "unknown")
+| summarize Events=count(), LastSeen=max(TimeGenerated) by Type, Operation

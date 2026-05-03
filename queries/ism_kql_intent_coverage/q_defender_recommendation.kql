@@ -1,0 +1,4 @@
+SecurityRecommendation
+| where TimeGenerated > ago(30d)
+| where RecommendationDisplayName has_any ("encrypt", "TLS", "unsupported", "logging", "diagnostic", "secure", "vulnerability", "firewall")
+| summarize Findings=count(), Unhealthy=countif(RecommendationState !in~ ("Healthy", "Resolved")), LastSeen=max(TimeGenerated) by RecommendationDisplayName, RecommendationState

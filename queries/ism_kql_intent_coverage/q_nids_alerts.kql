@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityAlert, AzureDiagnostics, CommonSecurityLog
+| where TimeGenerated > ago(30d)
+| where tostring(pack_all()) has_any ("IDS", "IPS", "intrusion", "signature", "rule violation", "NIDS", "NIPS")
+| summarize Alerts=count(), LastSeen=max(TimeGenerated) by Type, Severity=tostring(column_ifexists("Severity", ""))

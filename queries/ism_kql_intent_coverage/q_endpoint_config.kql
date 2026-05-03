@@ -1,0 +1,4 @@
+union isfuzzy=true SecurityRecommendation, SecurityEvent, WindowsEvent
+| where TimeGenerated > ago(30d)
+| where tostring(pack_all()) has_any ("application control", "AppLocker", "WDAC", "firewall", "antivirus", "Defender", "macro", "PowerShell", "Credential Guard", "Remote Credential Guard", "Secure Boot", "screen lock", "cached credentials", "Group Policy Preferences")
+| summarize Findings=count(), LastSeen=max(TimeGenerated) by Type, Setting=tostring(column_ifexists("RecommendationDisplayName", column_ifexists("Source", "")))

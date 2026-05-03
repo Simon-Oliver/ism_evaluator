@@ -1,0 +1,4 @@
+union isfuzzy=true AzureDiagnostics, CommonSecurityLog, Syslog
+| where TimeGenerated > ago(14d)
+| where tostring(pack_all()) has_any ("malicious", "phishing", "blocked", "deny", "sinkhole", "threat")
+| summarize Blocks=count(), LastSeen=max(TimeGenerated) by Type, Action=tostring(column_ifexists("Action", ""))
