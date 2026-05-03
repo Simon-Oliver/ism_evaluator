@@ -45,13 +45,17 @@ These placeholder directories may not exist in the current checkout if they are 
 5. For each evidence definition, dispatches to a collector based on `definition["type"]`.
 6. Evaluates configured assertions.
 7. Prints the resulting finding dictionary to stdout.
-8. Writes full findings and dashboard summary JSON under `output/runs/<run_id>/`.
+8. Loads assessment manifests from `data/assessments/*.yaml`.
+9. Creates one assessment finding per source assessment row.
+10. Writes full findings and dashboard summary JSON under `output/runs/<run_id>/`.
 
 Current collectors:
 
 - `kql`: for now, reads fixture data from `data/test_data/test_data.json` when `source.workspace` is `test_data`.
 - `manual_reference`: looks up an entry in `config/manual_evidence_register.yaml`.
 - `azure_policy`: placeholder only.
+
+Assessment ingestion is separate from the collector registry. Assessment manifests are not added to `config/evidence_definitions.yaml`; instead, each source row becomes an assessment finding with `type: assessment`.
 
 Current enabled assertion types:
 
@@ -179,6 +183,7 @@ Good next tasks:
 
 - `azure_policy` collection is currently a placeholder.
 - The KQL collector only supports local fixture data when `workspace` is `test_data`.
+- Assessment source ingestion currently supports CSV only.
 - There is no active packaging file such as `pyproject.toml` or `requirements.txt` in the current repo.
 - There are no tests yet.
 - Findings are persisted under `output/runs/<run_id>/`, but the output format is still early and should be treated as an MVP contract.

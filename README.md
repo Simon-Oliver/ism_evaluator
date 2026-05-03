@@ -45,6 +45,8 @@ The runner then:
 4. Runs the collector to retrieve raw evidence.
 5. Runs the generic evaluator against the definition's assertions.
 6. Packages the result into a structured finding.
+7. Loads assessment manifests from `data/assessments/*.yaml`.
+8. Turns each assessment source row into an assessment finding.
 
 ## Evidence Definitions
 
@@ -113,6 +115,39 @@ manual_evidence:
 ```
 
 Evidence definitions reference these records by `source.evidence_register_id`.
+
+## Assessments
+
+Assessments are handled as a separate first-class input rather than as one evidence definition per control. Each YAML file in `data/assessments/` is treated as an assessment manifest. The manifest points to a source file, currently CSV.
+
+Example:
+
+```yaml
+assessment:
+  id: test-assessment-2026
+  type: irap
+  system_id: test-system-abc
+  system_name: Test System ABC
+  ism_version: "2025-12"
+  assessment_date: "2026-02-10"
+  source:
+    file: data/assessments/ssp_annex_test_assessment.csv
+    format: csv
+    control_id_column: ism_control
+    rating_column: rating
+```
+
+Each CSV row becomes an assessment finding. Ratings are currently mapped as:
+
+| Rating | Finding status |
+| --- | --- |
+| `effective` | `pass` |
+| `alternate control` | `pass` |
+| `ineffective` | `fail` |
+| `not implemented` | `fail` |
+| `not applicable` | `not_applicable` |
+
+Unknown ratings become `needs_review`.
 
 ## Collectors
 

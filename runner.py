@@ -1,8 +1,17 @@
+import csv
 import yaml
 import json
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+
+ASSESSMENT_RATING_STATUS = {
+    "effective": "pass",
+    "alternate control": "pass",
+    "ineffective": "fail",
+    "not implemented": "fail",
+    "not applicable": "not_applicable",
+}
 
 
 def yaml_loader(path):
@@ -324,6 +333,130 @@ def create_error_finding(definition, error, context):
     }
 
 
+def load_assessment_manifests(path="data/assessments"):
+    manifests = []
+    assessment_ids = set()
+
+    for manifest_path in sorted(Path(path).glob("*.yaml")):
+        data = yaml_loader(manifest_path)
+        assessment = data["assessment"]
+        assessment_id = assessment["id"]
+
+        if assessment_id in assessment_ids:
+            raise ValueError(f"Duplicate assessment id found: {assessment_id}")
+
+        assessment_ids.add(assessment_id)
+        assessment["_manifest_file"] = str(manifest_path)
+        manifests.append(assessment)
+
+    return manifests
+
+
+def load_assessment_rows(assessment):
+    source = assessment["source"]
+
+    if source["format"] != "csv":
+        raise ValueError(f"Unsupported assessment source format: {source['format']}")
+
+    source_file = Path(source["file"])
+    control_id_column = source["control_id_column"]
+    rating_column = source["rating_column"]
+    rows = []
+
+    with open(source_file, newline="") as f:
+        reader = csv.DictReader(f)
+        missing_columns = {control_id_column, rating_column} - set(reader.fieldnames or [])
+
+        if missing_columns:
+            raise ValueError(
+                f"Assessment '{assessment['id']}' source is missing columns: {sorted(missing_columns)}"
+            )
+
+        for row in reader:
+            rows.append({
+                "assessment_id": assessment["id"],
+                "assessment_type": assessment["type"],
+                "system_id": assessment["system_id"],
+                "system_name": assessment["system_name"],
+                "ism_version": assessment["ism_version"],
+                "assessment_date": assessment["assessment_date"],
+                "control_id": str(row[control_id_column]).strip().upper(),
+                "rating": str(row[rating_column]).strip().lower(),
+                "source_file": str(source_file),
+                "source_row": row,
+            })
+
+    return rows
+
+
+def create_assessment_finding(assessment_row, context):
+    rating = assessment_row["rating"]
+    status = ASSESSMENT_RATING_STATUS.get(rating, "needs_review")
+    control_id = assessment_row["control_id"]
+    assessment_id = assessment_row["assessment_id"]
+
+    return {
+        "run": {
+            "run_id": context["run_id"],
+            "started_at": context["started_at"],
+        },
+        "definition": {
+            "id": f"ASSESSMENT-{assessment_id}-{control_id}",
+            "control_id": control_id,
+            "applies_to_ism_version": assessment_row["ism_version"],
+            "type": "assessment",
+            "claim": f"{assessment_row['assessment_type'].upper()} assessment rating for {control_id}.",
+            "source": {
+                "assessment_id": assessment_id,
+                "source_file": assessment_row["source_file"],
+            },
+            "evaluation": {
+                "mode": "assessment_rating",
+                "assertions": [
+                    {
+                        "type": "assessment_rating",
+                        "rating": rating,
+                    }
+                ],
+            },
+        },
+        "evidence": {
+            "raw": assessment_row,
+        },
+        "evaluation": {
+            "status": status,
+            "mode": "assessment_rating",
+            "assertions": [
+                {
+                    "type": "assessment_rating",
+                    "status": status,
+                    "reason": f"Assessment rating was '{rating}'.",
+                    "details": {
+                        "rating": rating,
+                        "system_id": assessment_row["system_id"],
+                        "system_name": assessment_row["system_name"],
+                        "assessment_id": assessment_id,
+                        "assessment_type": assessment_row["assessment_type"],
+                        "assessment_date": assessment_row["assessment_date"],
+                    },
+                }
+            ],
+        },
+    }
+
+
+def create_assessment_findings(context):
+    findings = []
+
+    for assessment in load_assessment_manifests():
+        print(f"Loading assessment: {assessment['id']}")
+
+        for assessment_row in load_assessment_rows(assessment):
+            findings.append(create_assessment_finding(assessment_row, context))
+
+    return findings
+
+
 def create_summary_row(finding):
     evaluation = finding["evaluation"]
     definition = finding["definition"]
@@ -331,6 +464,7 @@ def create_summary_row(finding):
     source = definition.get("source") or {}
     raw_evidence = finding.get("evidence", {}).get("raw")
     evidence_rows = raw_evidence.get("rows", []) if isinstance(raw_evidence, dict) else []
+    assessment_evidence = raw_evidence if definition["type"] == "assessment" else {}
 
     return {
         "run_id": finding["run"]["run_id"],
@@ -344,6 +478,12 @@ def create_summary_row(finding):
         "source_workspace": source.get("workspace"),
         "source_query_file": source.get("query_file"),
         "manual_evidence_id": source.get("evidence_register_id"),
+        "assessment_id": assessment_evidence.get("assessment_id"),
+        "assessment_type": assessment_evidence.get("assessment_type"),
+        "system_id": assessment_evidence.get("system_id"),
+        "system_name": assessment_evidence.get("system_name"),
+        "assessment_date": assessment_evidence.get("assessment_date"),
+        "assessment_rating": assessment_evidence.get("rating"),
         "assertion_count": len(assertion_results),
         "passed_assertions": sum(result.get("status") == "pass" for result in assertion_results),
         "failed_assertions": sum(result.get("status") == "fail" for result in assertion_results),
@@ -376,6 +516,24 @@ for definition in evidence_definitions["evidence_definitions"]:
         print(f"ERROR {definition.get('id', 'unknown')}: {type(e).__name__}: {e}")
         findings.append(create_error_finding(definition, e, CONTEXT))
 
+try:
+    findings.extend(create_assessment_findings(CONTEXT))
+
+except Exception as e:
+    print(f"ERROR assessments: {type(e).__name__}: {e}")
+    findings.append(create_error_finding({
+        "id": "ASSESSMENTS",
+        "control_id": None,
+        "applies_to_ism_version": None,
+        "type": "assessment",
+        "claim": "Assessment ingestion.",
+        "source": {
+            "path": "data/assessments",
+        },
+        "evaluation": {
+            "mode": "assessment_ingestion",
+        },
+    }, e, CONTEXT))
 
 summary = [create_summary_row(finding) for finding in findings]
 run_output_dir = Path("output") / "runs" / CONTEXT["run_id"]
