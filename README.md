@@ -60,6 +60,8 @@ evidence_definitions:
     control_id: ISM-1683
     applies_to_ism_version: "2025-02"
     type: kql
+    system_id: test-system-abc
+    system_name: Test System ABC
     claim: MFA success and failure events are present in centralised sign-in logs.
     source:
       workspace: test_data
@@ -84,6 +86,8 @@ evidence_definitions:
     control_id: ISM-1683
     applies_to_ism_version: "2025-02"
     type: manual_reference
+    system_id: test-system-abc
+    system_name: Test System ABC
     claim: A documented process.
     source:
       evidence_register_id: MAN-TEST-SOP
@@ -311,6 +315,7 @@ Add a new entry to `config/evidence_definitions.yaml` with:
 
 - a unique `id`
 - a `control_id`
+- optional `system_id` and `system_name` fields when the check applies to a specific system
 - a source `type`
 - source configuration
 - one or more assertions

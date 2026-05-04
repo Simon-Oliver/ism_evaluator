@@ -1,5 +1,6 @@
 # Review draft in the same schema as config/evidence_definitions.yaml.
 # Replace REPLACE_WITH_LOG_ANALYTICS_WORKSPACE_ID before promoting entries.
+# Replace REPLACE_WITH_SYSTEM_ID and REPLACE_WITH_SYSTEM_NAME when the check applies to a specific system.
 # Assertion values of 1 are review defaults for minimum evidence volume and should be tuned per environment/control.
 # These assertions check whether the associated KQL returned the expected evidence signal; they are not a final compliance decision without control-specific review.
 
@@ -18,6 +19,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0120-KQL-SOC-DATA-SOURCES
   control_id: ISM-0120
   applies_to_ism_version: 2026.03.24
@@ -32,6 +35,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0123-KQL-INCIDENT-WORKFLOW
   control_id: ISM-0123
   applies_to_ism_version: 2026.03.24
@@ -49,6 +54,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Assigned
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0125-KQL-INCIDENT-REGISTER
   control_id: ISM-0125
   applies_to_ism_version: 2026.03.24
@@ -63,6 +70,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Incidents
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0298-KQL-VULN-PATCH-POSTURE
   control_id: ISM-0298
   applies_to_ism_version: 2026.03.24
@@ -77,6 +86,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0304-KQL-UNSUPPORTED-SOFTWARE
   control_id: ISM-0304
   applies_to_ism_version: 2026.03.24
@@ -91,6 +102,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0407-KQL-ACCESS-AUDIT
   control_id: ISM-0407
   applies_to_ism_version: 2026.03.24
@@ -105,6 +118,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0414-KQL-UNIQUE-SIGNINS
   control_id: ISM-0414
   applies_to_ism_version: 2026.03.24
@@ -122,6 +137,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: DistinctIds
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0430-KQL-ACCESS-REMOVAL
   control_id: ISM-0430
   applies_to_ism_version: 2026.03.24
@@ -136,6 +153,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Removals
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0445-KQL-PRIVILEGED-ACCOUNTS
   control_id: ISM-0445
   applies_to_ism_version: 2026.03.24
@@ -150,6 +169,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0580-KQL-LOG-SOURCE
   control_id: ISM-0580
   applies_to_ism_version: 2026.03.24
@@ -164,6 +185,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0582-KQL-WINDOWS-SECURITY-LOGS
   control_id: ISM-0582
   applies_to_ism_version: 2026.03.24
@@ -178,6 +201,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0585-KQL-LOG-FIELD-COMPLETENESS
   control_id: ISM-0585
   applies_to_ism_version: 2026.03.24
@@ -195,6 +220,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: WithHost
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0634-KQL-GATEWAY-LOGS
   control_id: ISM-0634
   applies_to_ism_version: 2026.03.24
@@ -212,6 +239,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Denied
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0670-KQL-GATEWAY-LOGS
   control_id: ISM-0670
   applies_to_ism_version: 2026.03.24
@@ -226,6 +255,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0843-KQL-ENDPOINT-CONFIG
   control_id: ISM-0843
   applies_to_ism_version: 2026.03.24
@@ -240,6 +271,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0846-KQL-ENDPOINT-CONFIG
   control_id: ISM-0846
   applies_to_ism_version: 2026.03.24
@@ -254,6 +287,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0917-KQL-MALWARE-RESPONSE
   control_id: ISM-0917
   applies_to_ism_version: 2026.03.24
@@ -268,6 +303,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0955-KQL-ENDPOINT-CONFIG
   control_id: ISM-0955
   applies_to_ism_version: 2026.03.24
@@ -282,6 +319,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0974-KQL-MFA-SIGNIN
   control_id: ISM-0974
   applies_to_ism_version: 2026.03.24
@@ -296,6 +335,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: MFARequired
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-0988-KQL-TIME-SKEW
   control_id: ISM-0988
   applies_to_ism_version: 2026.03.24
@@ -310,6 +351,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1030-KQL-NIDS-ALERTS
   control_id: ISM-1030
   applies_to_ism_version: 2026.03.24
@@ -324,6 +367,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Alerts
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1173-KQL-MFA-SIGNIN
   control_id: ISM-1173
   applies_to_ism_version: 2026.03.24
@@ -338,6 +383,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: MFARequired
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1175-KQL-PRIVILEGED-INTERNET
   control_id: ISM-1175
   applies_to_ism_version: 2026.03.24
@@ -352,6 +399,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1228-KQL-ALERT-ANALYSIS
   control_id: ISM-1228
   applies_to_ism_version: 2026.03.24
@@ -366,6 +415,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Items
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1234-KQL-EMAIL-SECURITY
   control_id: ISM-1234
   applies_to_ism_version: 2026.03.24
@@ -380,6 +431,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1236-KQL-DNS-WEB-BLOCKING
   control_id: ISM-1236
   applies_to_ism_version: 2026.03.24
@@ -394,6 +447,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Blocks
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1237-KQL-WEB-PROXY
   control_id: ISM-1237
   applies_to_ism_version: 2026.03.24
@@ -408,6 +463,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1243-KQL-DATABASE-INVENTORY
   control_id: ISM-1243
   applies_to_ism_version: 2026.03.24
@@ -422,6 +479,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1255-KQL-DATABASE-AUDIT
   control_id: ISM-1255
   applies_to_ism_version: 2026.03.24
@@ -436,6 +495,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1268-KQL-DATABASE-AUDIT
   control_id: ISM-1268
   applies_to_ism_version: 2026.03.24
@@ -450,6 +511,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1271-KQL-DATABASE-NETWORK
   control_id: ISM-1271
   applies_to_ism_version: 2026.03.24
@@ -467,6 +530,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Denies
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1277-KQL-DEFENDER-RECOMMENDATION
   control_id: ISM-1277
   applies_to_ism_version: 2026.03.24
@@ -481,6 +546,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1380-KQL-PRIVILEGED-WORKSTATION
   control_id: ISM-1380
   applies_to_ism_version: 2026.03.24
@@ -495,6 +562,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1385-KQL-ADMIN-NETWORK
   control_id: ISM-1385
   applies_to_ism_version: 2026.03.24
@@ -509,6 +578,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1386-KQL-ADMIN-NETWORK
   control_id: ISM-1386
   applies_to_ism_version: 2026.03.24
@@ -523,6 +594,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1387-KQL-BASTION-JUMP
   control_id: ISM-1387
   applies_to_ism_version: 2026.03.24
@@ -537,6 +610,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1403-KQL-AUTH-FAILURES
   control_id: ISM-1403
   applies_to_ism_version: 2026.03.24
@@ -551,6 +626,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Failures
       value: 5
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1404-KQL-INACTIVE-ACCOUNTS
   control_id: ISM-1404
   applies_to_ism_version: 2026.03.24
@@ -564,6 +641,8 @@ evidence_definitions:
     assertions:
     - type: result_minimum_rows
       count: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1405-KQL-CENTRALISED-LOGGING
   control_id: ISM-1405
   applies_to_ism_version: 2026.03.24
@@ -578,6 +657,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1416-KQL-ENDPOINT-CONFIG
   control_id: ISM-1416
   applies_to_ism_version: 2026.03.24
@@ -592,6 +673,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1417-KQL-ENDPOINT-CONFIG
   control_id: ISM-1417
   applies_to_ism_version: 2026.03.24
@@ -606,6 +689,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1418-KQL-REMOVABLE-MEDIA
   control_id: ISM-1418
   applies_to_ism_version: 2026.03.24
@@ -620,6 +705,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1427-KQL-GATEWAY-LOGS
   control_id: ISM-1427
   applies_to_ism_version: 2026.03.24
@@ -637,6 +724,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Denied
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1430-KQL-DHCP-DNS-LOGS
   control_id: ISM-1430
   applies_to_ism_version: 2026.03.24
@@ -651,6 +740,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1467-KQL-SOFTWARE-INVENTORY
   control_id: ISM-1467
   applies_to_ism_version: 2026.03.24
@@ -665,6 +756,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1483-KQL-DEFENDER-RECOMMENDATION
   control_id: ISM-1483
   applies_to_ism_version: 2026.03.24
@@ -679,6 +772,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1488-KQL-ENDPOINT-CONFIG
   control_id: ISM-1488
   applies_to_ism_version: 2026.03.24
@@ -693,6 +788,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1490-KQL-ENDPOINT-CONFIG
   control_id: ISM-1490
   applies_to_ism_version: 2026.03.24
@@ -707,6 +804,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1491-KQL-PROCESS-CREATION
   control_id: ISM-1491
   applies_to_ism_version: 2026.03.24
@@ -721,6 +820,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1493-KQL-SOFTWARE-INVENTORY
   control_id: ISM-1493
   applies_to_ism_version: 2026.03.24
@@ -735,6 +836,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1501-KQL-UNSUPPORTED-OS
   control_id: ISM-1501
   applies_to_ism_version: 2026.03.24
@@ -749,6 +852,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1504-KQL-MFA-SIGNIN
   control_id: ISM-1504
   applies_to_ism_version: 2026.03.24
@@ -763,6 +868,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: MFARequired
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1505-KQL-MFA-SIGNIN
   control_id: ISM-1505
   applies_to_ism_version: 2026.03.24
@@ -777,6 +884,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: MFARequired
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1508-KQL-PRIVILEGED-ACCOUNTS
   control_id: ISM-1508
   applies_to_ism_version: 2026.03.24
@@ -791,6 +900,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1509-KQL-PRIVILEGED-LOGGING
   control_id: ISM-1509
   applies_to_ism_version: 2026.03.24
@@ -805,6 +916,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1536-KQL-APP-DB-LOGS
   control_id: ISM-1536
   applies_to_ism_version: 2026.03.24
@@ -819,6 +932,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1537-KQL-DATABASE-AUDIT
   control_id: ISM-1537
   applies_to_ism_version: 2026.03.24
@@ -833,6 +948,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1566-KQL-UNPRIVILEGED-LOGGING
   control_id: ISM-1566
   applies_to_ism_version: 2026.03.24
@@ -847,6 +964,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1582-KQL-ENDPOINT-CONFIG
   control_id: ISM-1582
   applies_to_ism_version: 2026.03.24
@@ -861,6 +980,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1584-KQL-ENDPOINT-CONFIG
   control_id: ISM-1584
   applies_to_ism_version: 2026.03.24
@@ -875,6 +996,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1590-KQL-CREDENTIAL-RESET
   control_id: ISM-1590
   applies_to_ism_version: 2026.03.24
@@ -889,6 +1012,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1607-KQL-VIRTUALISATION-LOGS
   control_id: ISM-1607
   applies_to_ism_version: 2026.03.24
@@ -903,6 +1028,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1611-KQL-BREAKGLASS-USAGE
   control_id: ISM-1611
   applies_to_ism_version: 2026.03.24
@@ -917,6 +1044,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: SignIns
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1612-KQL-BREAKGLASS-USAGE
   control_id: ISM-1612
   applies_to_ism_version: 2026.03.24
@@ -931,6 +1060,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: SignIns
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1613-KQL-BREAKGLASS-USAGE
   control_id: ISM-1613
   applies_to_ism_version: 2026.03.24
@@ -945,6 +1076,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: SignIns
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1621-KQL-ENDPOINT-CONFIG
   control_id: ISM-1621
   applies_to_ism_version: 2026.03.24
@@ -959,6 +1092,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1622-KQL-ENDPOINT-CONFIG
   control_id: ISM-1622
   applies_to_ism_version: 2026.03.24
@@ -973,6 +1108,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1623-KQL-POWERSHELL-LOGS
   control_id: ISM-1623
   applies_to_ism_version: 2026.03.24
@@ -987,6 +1124,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1624-KQL-POWERSHELL-LOGS
   control_id: ISM-1624
   applies_to_ism_version: 2026.03.24
@@ -1001,6 +1140,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1643-KQL-SOFTWARE-INVENTORY
   control_id: ISM-1643
   applies_to_ism_version: 2026.03.24
@@ -1015,6 +1156,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1647-KQL-PRIVILEGED-RECERT
   control_id: ISM-1647
   applies_to_ism_version: 2026.03.24
@@ -1029,6 +1172,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1648-KQL-PRIVILEGED-INACTIVE
   control_id: ISM-1648
   applies_to_ism_version: 2026.03.24
@@ -1042,6 +1187,8 @@ evidence_definitions:
     assertions:
     - type: result_minimum_rows
       count: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1650-KQL-PRIVILEGED-LOGGING
   control_id: ISM-1650
   applies_to_ism_version: 2026.03.24
@@ -1056,6 +1203,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1656-KQL-ENDPOINT-CONFIG
   control_id: ISM-1656
   applies_to_ism_version: 2026.03.24
@@ -1070,6 +1219,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1657-KQL-ENDPOINT-CONFIG
   control_id: ISM-1657
   applies_to_ism_version: 2026.03.24
@@ -1084,6 +1235,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1658-KQL-ENDPOINT-CONFIG
   control_id: ISM-1658
   applies_to_ism_version: 2026.03.24
@@ -1098,6 +1251,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1660-KQL-APPLICATION-CONTROL-LOGS
   control_id: ISM-1660
   applies_to_ism_version: 2026.03.24
@@ -1112,6 +1267,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1679-KQL-MFA-SIGNIN
   control_id: ISM-1679
   applies_to_ism_version: 2026.03.24
@@ -1126,6 +1283,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: MFARequired
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1680-KQL-MFA-SIGNIN
   control_id: ISM-1680
   applies_to_ism_version: 2026.03.24
@@ -1140,6 +1299,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: MFARequired
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1681-KQL-MFA-SIGNIN
   control_id: ISM-1681
   applies_to_ism_version: 2026.03.24
@@ -1154,6 +1315,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: MFARequired
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1682-KQL-PHISH-RESISTANT-MFA
   control_id: ISM-1682
   applies_to_ism_version: 2026.03.24
@@ -1168,6 +1331,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: PhishResistant
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1683-KQL-MFA-SIGNIN
   control_id: ISM-1683
   applies_to_ism_version: 2026.03.24
@@ -1185,6 +1350,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Failures
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1686-KQL-ENDPOINT-CONFIG
   control_id: ISM-1686
   applies_to_ism_version: 2026.03.24
@@ -1199,6 +1366,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1688-KQL-PRIVILEGED-WORKSTATION
   control_id: ISM-1688
   applies_to_ism_version: 2026.03.24
@@ -1213,6 +1382,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1689-KQL-PRIVILEGED-WORKSTATION
   control_id: ISM-1689
   applies_to_ism_version: 2026.03.24
@@ -1227,6 +1398,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1690-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1690
   applies_to_ism_version: 2026.03.24
@@ -1242,6 +1415,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1691-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1691
   applies_to_ism_version: 2026.03.24
@@ -1256,6 +1431,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1692-KQL-VULN-PATCH-CRITICAL
   control_id: ISM-1692
   applies_to_ism_version: 2026.03.24
@@ -1270,6 +1447,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1693-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1693
   applies_to_ism_version: 2026.03.24
@@ -1284,6 +1463,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1694-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1694
   applies_to_ism_version: 2026.03.24
@@ -1298,6 +1479,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1695-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1695
   applies_to_ism_version: 2026.03.24
@@ -1312,6 +1495,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1696-KQL-VULN-PATCH-CRITICAL
   control_id: ISM-1696
   applies_to_ism_version: 2026.03.24
@@ -1326,6 +1511,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1697-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1697
   applies_to_ism_version: 2026.03.24
@@ -1340,6 +1527,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1698-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1698
   applies_to_ism_version: 2026.03.24
@@ -1354,6 +1543,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1699-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1699
   applies_to_ism_version: 2026.03.24
@@ -1368,6 +1559,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1700-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1700
   applies_to_ism_version: 2026.03.24
@@ -1382,6 +1575,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1701-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1701
   applies_to_ism_version: 2026.03.24
@@ -1396,6 +1591,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1702-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1702
   applies_to_ism_version: 2026.03.24
@@ -1410,6 +1607,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1703-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1703
   applies_to_ism_version: 2026.03.24
@@ -1424,6 +1623,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1704-KQL-UNSUPPORTED-SOFTWARE
   control_id: ISM-1704
   applies_to_ism_version: 2026.03.24
@@ -1438,6 +1639,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1745-KQL-ENDPOINT-CONFIG
   control_id: ISM-1745
   applies_to_ism_version: 2026.03.24
@@ -1452,6 +1655,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1749-KQL-ENDPOINT-CONFIG
   control_id: ISM-1749
   applies_to_ism_version: 2026.03.24
@@ -1466,6 +1671,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1751-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1751
   applies_to_ism_version: 2026.03.24
@@ -1480,6 +1687,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1752-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1752
   applies_to_ism_version: 2026.03.24
@@ -1494,6 +1703,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1753-KQL-UNSUPPORTED-NETWORK
   control_id: ISM-1753
   applies_to_ism_version: 2026.03.24
@@ -1508,6 +1719,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1782-KQL-DNS-WEB-BLOCKING
   control_id: ISM-1782
   applies_to_ism_version: 2026.03.24
@@ -1522,6 +1735,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Blocks
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1807-KQL-ASSET-DISCOVERY
   control_id: ISM-1807
   applies_to_ism_version: 2026.03.24
@@ -1536,6 +1751,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1808-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1808
   applies_to_ism_version: 2026.03.24
@@ -1550,6 +1767,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1809-KQL-DEFENDER-RECOMMENDATION
   control_id: ISM-1809
   applies_to_ism_version: 2026.03.24
@@ -1564,6 +1783,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1815-KQL-LOG-TAMPER
   control_id: ISM-1815
   applies_to_ism_version: 2026.03.24
@@ -1578,6 +1799,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1819-KQL-INCIDENT-WORKFLOW
   control_id: ISM-1819
   applies_to_ism_version: 2026.03.24
@@ -1595,6 +1818,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Assigned
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1829-KQL-ENDPOINT-CONFIG
   control_id: ISM-1829
   applies_to_ism_version: 2026.03.24
@@ -1609,6 +1834,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1830-KQL-AD-SERVER-LOGS
   control_id: ISM-1830
   applies_to_ism_version: 2026.03.24
@@ -1623,6 +1850,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1832-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1832
   applies_to_ism_version: 2026.03.24
@@ -1637,6 +1866,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1833-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1833
   applies_to_ism_version: 2026.03.24
@@ -1651,6 +1882,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1835-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1835
   applies_to_ism_version: 2026.03.24
@@ -1665,6 +1898,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1836-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1836
   applies_to_ism_version: 2026.03.24
@@ -1679,6 +1914,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1840-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1840
   applies_to_ism_version: 2026.03.24
@@ -1693,6 +1930,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1843-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1843
   applies_to_ism_version: 2026.03.24
@@ -1707,6 +1946,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1845-KQL-ACCESS-REMOVAL
   control_id: ISM-1845
   applies_to_ism_version: 2026.03.24
@@ -1721,6 +1962,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Removals
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1852-KQL-ACCESS-REVIEW
   control_id: ISM-1852
   applies_to_ism_version: 2026.03.24
@@ -1735,6 +1978,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1875-KQL-CREDENTIAL-EXPOSURE
   control_id: ISM-1875
   applies_to_ism_version: 2026.03.24
@@ -1749,6 +1994,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1876-KQL-VULN-PATCH-CRITICAL
   control_id: ISM-1876
   applies_to_ism_version: 2026.03.24
@@ -1763,6 +2010,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1877-KQL-VULN-PATCH-CRITICAL
   control_id: ISM-1877
   applies_to_ism_version: 2026.03.24
@@ -1777,6 +2026,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1878-KQL-VULN-PATCH-CRITICAL
   control_id: ISM-1878
   applies_to_ism_version: 2026.03.24
@@ -1791,6 +2042,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1879-KQL-VULN-PATCH-CRITICAL
   control_id: ISM-1879
   applies_to_ism_version: 2026.03.24
@@ -1805,6 +2058,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1889-KQL-PROCESS-CREATION
   control_id: ISM-1889
   applies_to_ism_version: 2026.03.24
@@ -1819,6 +2074,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1894-KQL-PHISH-RESISTANT-MFA
   control_id: ISM-1894
   applies_to_ism_version: 2026.03.24
@@ -1833,6 +2090,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: PhishResistant
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1895-KQL-SIGNIN-LOGGING
   control_id: ISM-1895
   applies_to_ism_version: 2026.03.24
@@ -1850,6 +2109,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Failure
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1897-KQL-ENDPOINT-CONFIG
   control_id: ISM-1897
   applies_to_ism_version: 2026.03.24
@@ -1864,6 +2125,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1898-KQL-PRIVILEGED-WORKSTATION
   control_id: ISM-1898
   applies_to_ism_version: 2026.03.24
@@ -1878,6 +2141,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1899-KQL-ADMIN-NETWORK
   control_id: ISM-1899
   applies_to_ism_version: 2026.03.24
@@ -1892,6 +2157,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1900-KQL-VULN-SCAN-CADENCE
   control_id: ISM-1900
   applies_to_ism_version: 2026.03.24
@@ -1906,6 +2173,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1901-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1901
   applies_to_ism_version: 2026.03.24
@@ -1920,6 +2189,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1902-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1902
   applies_to_ism_version: 2026.03.24
@@ -1934,6 +2205,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1903-KQL-VULN-PATCH-CRITICAL
   control_id: ISM-1903
   applies_to_ism_version: 2026.03.24
@@ -1948,6 +2221,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1904-KQL-VULN-PATCH-POSTURE
   control_id: ISM-1904
   applies_to_ism_version: 2026.03.24
@@ -1962,6 +2237,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1905-KQL-UNSUPPORTED-SOFTWARE
   control_id: ISM-1905
   applies_to_ism_version: 2026.03.24
@@ -1976,6 +2253,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1906-KQL-LOG-SOURCE
   control_id: ISM-1906
   applies_to_ism_version: 2026.03.24
@@ -1990,6 +2269,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1907-KQL-LOG-SOURCE
   control_id: ISM-1907
   applies_to_ism_version: 2026.03.24
@@ -2004,6 +2285,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1910-KQL-APP-API-LOGS
   control_id: ISM-1910
   applies_to_ism_version: 2026.03.24
@@ -2018,6 +2301,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1911-KQL-APP-API-LOGS
   control_id: ISM-1911
   applies_to_ism_version: 2026.03.24
@@ -2032,6 +2317,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1919-KQL-LEGACY-AUTH
   control_id: ISM-1919
   applies_to_ism_version: 2026.03.24
@@ -2046,6 +2333,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1920-KQL-MFA-REGISTRATION
   control_id: ISM-1920
   applies_to_ism_version: 2026.03.24
@@ -2060,6 +2349,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1921-KQL-EXPLOITED-VULN
   control_id: ISM-1921
   applies_to_ism_version: 2026.03.24
@@ -2074,6 +2365,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1930-KQL-ENDPOINT-CONFIG
   control_id: ISM-1930
   applies_to_ism_version: 2026.03.24
@@ -2088,6 +2381,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1934-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1934
   applies_to_ism_version: 2026.03.24
@@ -2102,6 +2397,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1937-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1937
   applies_to_ism_version: 2026.03.24
@@ -2116,6 +2413,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1939-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1939
   applies_to_ism_version: 2026.03.24
@@ -2130,6 +2429,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1940-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1940
   applies_to_ism_version: 2026.03.24
@@ -2144,6 +2445,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1941-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1941
   applies_to_ism_version: 2026.03.24
@@ -2158,6 +2461,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1952-KQL-AD-ACCOUNT-FINDINGS
   control_id: ISM-1952
   applies_to_ism_version: 2026.03.24
@@ -2172,6 +2477,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1958-KQL-PRIVILEGED-WORKSTATION
   control_id: ISM-1958
   applies_to_ism_version: 2026.03.24
@@ -2186,6 +2493,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1959-KQL-LOG-FIELD-COMPLETENESS
   control_id: ISM-1959
   applies_to_ism_version: 2026.03.24
@@ -2203,6 +2512,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: WithHost
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1960-KQL-GATEWAY-LOGS
   control_id: ISM-1960
   applies_to_ism_version: 2026.03.24
@@ -2217,6 +2528,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1961-KQL-GATEWAY-LOGS
   control_id: ISM-1961
   applies_to_ism_version: 2026.03.24
@@ -2231,6 +2544,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1963-KQL-GATEWAY-LOGS
   control_id: ISM-1963
   applies_to_ism_version: 2026.03.24
@@ -2245,6 +2560,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1964-KQL-GATEWAY-LOGS
   control_id: ISM-1964
   applies_to_ism_version: 2026.03.24
@@ -2259,6 +2576,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1976-KQL-LOG-SOURCE
   control_id: ISM-1976
   applies_to_ism_version: 2026.03.24
@@ -2273,6 +2592,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1977-KQL-LOG-SOURCE
   control_id: ISM-1977
   applies_to_ism_version: 2026.03.24
@@ -2287,6 +2608,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1978-KQL-APP-API-LOGS
   control_id: ISM-1978
   applies_to_ism_version: 2026.03.24
@@ -2301,6 +2624,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1979-KQL-APP-API-LOGS
   control_id: ISM-1979
   applies_to_ism_version: 2026.03.24
@@ -2315,6 +2640,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1981-KQL-UNSUPPORTED-NETWORK
   control_id: ISM-1981
   applies_to_ism_version: 2026.03.24
@@ -2329,6 +2656,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1982-KQL-UNSUPPORTED-NETWORK
   control_id: ISM-1982
   applies_to_ism_version: 2026.03.24
@@ -2343,6 +2672,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1983-KQL-INGESTION-LATENCY
   control_id: ISM-1983
   applies_to_ism_version: 2026.03.24
@@ -2357,6 +2688,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1984-KQL-DEFENDER-RECOMMENDATION
   control_id: ISM-1984
   applies_to_ism_version: 2026.03.24
@@ -2371,6 +2704,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1985-KQL-LOG-ACCESS
   control_id: ISM-1985
   applies_to_ism_version: 2026.03.24
@@ -2385,6 +2720,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1986-KQL-LOG-SOURCE
   control_id: ISM-1986
   applies_to_ism_version: 2026.03.24
@@ -2399,6 +2736,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1987-KQL-SECURITY-PRODUCT-LOGS
   control_id: ISM-1987
   applies_to_ism_version: 2026.03.24
@@ -2413,6 +2752,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-1988-KQL-RETENTION
   control_id: ISM-1988
   applies_to_ism_version: 2026.03.24
@@ -2431,6 +2772,8 @@ evidence_definitions:
       field: HasSearchable12Months
       values:
       - true
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-2011-KQL-PHISH-RESISTANT-MFA
   control_id: ISM-2011
   applies_to_ism_version: 2026.03.24
@@ -2445,6 +2788,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: PhishResistant
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-2012-KQL-ENDPOINT-CONFIG
   control_id: ISM-2012
   applies_to_ism_version: 2026.03.24
@@ -2459,6 +2804,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Findings
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-2017-KQL-DNS-ENCRYPTION
   control_id: ISM-2017
   applies_to_ism_version: 2026.03.24
@@ -2473,6 +2820,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-2030-KQL-DEVOPS-SECRET-SCANNING
   control_id: ISM-2030
   applies_to_ism_version: 2026.03.24
@@ -2487,6 +2836,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-2051-KQL-APP-API-LOGS
   control_id: ISM-2051
   applies_to_ism_version: 2026.03.24
@@ -2501,6 +2852,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-2052-KQL-APP-LOG-SENSITIVE-DATA
   control_id: ISM-2052
   applies_to_ism_version: 2026.03.24
@@ -2515,6 +2868,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-2059-KQL-MALWARE-RESPONSE
   control_id: ISM-2059
   applies_to_ism_version: 2026.03.24
@@ -2529,6 +2884,8 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Events
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME
 - id: CHECK-ISM-2068-KQL-NETWORK-EGRESS
   control_id: ISM-2068
   applies_to_ism_version: 2026.03.24
@@ -2546,3 +2903,5 @@ evidence_definitions:
     - type: result_numeric_field_sum_gte
       field: Denied
       value: 1
+  system_id: REPLACE_WITH_SYSTEM_ID
+  system_name: REPLACE_WITH_SYSTEM_NAME

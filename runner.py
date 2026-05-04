@@ -33,6 +33,14 @@ def write_json(path, data):
         json.dump(data, f, indent=2, default=json_default)
 
 
+def evidence_rows(evidence):
+    if isinstance(evidence, list):
+        return evidence
+    if isinstance(evidence, dict):
+        return evidence.get("rows", [])
+    return []
+
+
 with open("data/test_data/test_data.json") as f:
     test_data = json.load(f)
 
@@ -57,7 +65,7 @@ def collect_kql(definition, context):
     if workspace_id == 'test_data':
         print(f"Running with test data. Query file: {query_file}")
         test_id = query_file.split("/")[-1]
-        return test_data['kql'][test_id]
+        return test_data['kql'][test_id]["rows"]
 
 
 def collect_manual_reference(definition, context):
@@ -123,7 +131,7 @@ def collect_azure_policy(evidence_source, context):
 def assert_result_field_contains_all(assertion, evidence, context):
     field = assertion["field"]
     required_values = assertion["values"]
-    actual_values = [row[field] for row in evidence.get("rows", [])]
+    actual_values = [row[field] for row in evidence_rows(evidence)]
     missing_values = sorted(set(required_values) - set(actual_values))
 
     return {
@@ -175,10 +183,9 @@ def assert_manual_status_in(assertion, evidence, context):
 def assert_result_numeric_field_sum_gte(assertion, evidence, context):
     field = assertion["field"]
     minimum = assertion["value"]
-    rows = evidence.get("rows", [])
     values = []
 
-    for row in rows:
+    for row in evidence_rows(evidence):
         value = row.get(field, 0)
         if value is None:
             value = 0
@@ -222,7 +229,7 @@ def assert_result_numeric_field_sum_gte(assertion, evidence, context):
 
 def assert_result_minimum_rows(assertion, evidence, context):
     minimum = assertion["count"]
-    actual_count = len(evidence.get("rows", []))
+    actual_count = len(evidence_rows(evidence))
 
     return {
         "type": assertion["type"],
@@ -293,6 +300,8 @@ def create_finding(definition, evidence, evaluation, context):
             "applies_to_ism_version": definition["applies_to_ism_version"],
             "type": definition["type"],
             "claim": definition["claim"],
+            "system_id": definition.get("system_id"),
+            "system_name": definition.get("system_name"),
             "source": definition["source"],
             "evaluation": definition["evaluation"],
         },
@@ -315,6 +324,8 @@ def create_error_finding(definition, error, context):
             "applies_to_ism_version": definition.get("applies_to_ism_version"),
             "type": definition.get("type"),
             "claim": definition.get("claim"),
+            "system_id": definition.get("system_id"),
+            "system_name": definition.get("system_name"),
             "source": definition.get("source"),
             "evaluation": definition.get("evaluation"),
         },
@@ -463,8 +474,10 @@ def create_summary_row(finding):
     assertion_results = evaluation.get("assertions", [])
     source = definition.get("source") or {}
     raw_evidence = finding.get("evidence", {}).get("raw")
-    evidence_rows = raw_evidence.get("rows", []) if isinstance(raw_evidence, dict) else []
+    rows = evidence_rows(raw_evidence)
     assessment_evidence = raw_evidence if definition["type"] == "assessment" else {}
+    system_id = assessment_evidence.get("system_id") or definition.get("system_id")
+    system_name = assessment_evidence.get("system_name") or definition.get("system_name")
 
     return {
         "run_id": finding["run"]["run_id"],
@@ -480,14 +493,14 @@ def create_summary_row(finding):
         "manual_evidence_id": source.get("evidence_register_id"),
         "assessment_id": assessment_evidence.get("assessment_id"),
         "assessment_type": assessment_evidence.get("assessment_type"),
-        "system_id": assessment_evidence.get("system_id"),
-        "system_name": assessment_evidence.get("system_name"),
+        "system_id": system_id,
+        "system_name": system_name,
         "assessment_date": assessment_evidence.get("assessment_date"),
         "assessment_rating": assessment_evidence.get("rating"),
         "assertion_count": len(assertion_results),
         "passed_assertions": sum(result.get("status") == "pass" for result in assertion_results),
         "failed_assertions": sum(result.get("status") == "fail" for result in assertion_results),
-        "evidence_row_count": len(evidence_rows),
+        "evidence_row_count": len(rows),
         "error_type": evaluation.get("error", {}).get("type"),
         "error_message": evaluation.get("error", {}).get("message"),
     }
