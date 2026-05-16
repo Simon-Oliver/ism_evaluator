@@ -1,0 +1,30 @@
+manual_evidence:
+  - id: ev-central-logging-design
+    title: Central logging architecture
+    type: document
+    systems:
+      - sys-payroll
+      - sys-crm
+    ism_version: "2026.03.24"
+    controls:
+      - ism-1683
+      - ism-1895
+    status: effective
+    reviewed_on: "2026-05-01"
+    expires_on: "2027-05-01"
+    location: sharepoint://Cyber/Logging/Central-Logging-Architecture.docx
+    owner: Cyber Security
+    comment: Centralised authentication and security logging is documented.
+  - id: ev-powershell-risk-acceptance
+    title: PowerShell Protected Event Logging risk acceptance
+    type: risk_acceptance
+    systems:
+      - sys-payroll
+    ism_version: "2026.03.24"
+    controls:
+      - ism-1624
+    status: alternate_control
+    reviewed_on: "2026-04-29"
+    expires_on: "2026-10-29"
+    location: risk://RISK-123
+    comment: Risk accepted with compensating controls.

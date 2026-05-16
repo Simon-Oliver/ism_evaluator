@@ -1,0 +1,22 @@
+assessments:
+  - id: test-assessment-2026
+    system_id: test-system
+    type: irap
+    ism_version: "2026.03.24"
+    assessed_on: "2026-03-24"
+    expires_on: "2027-03-24"
+    csv_path: data/assessments/ssp_annex_test_assessment.csv
+    control_id_column: "ism_control"
+    rating_column: "rating"
+    source_document: sharepoint://Assurance/Test-System-ABC/IRAP-2026/SSP-Annex.xlsx
+  - id: asmt-payroll-irap-2026
+    system_id: sys-payroll
+    type: irap
+    ism_version: "2026.03.24"
+    assessed_on: "2026-03-24"
+    expires_on: "2027-03-24"
+    csv_path: data/assessments/payroll_irap_2026.csv
+    control_id_column: "controlid"
+    rating_column: "rating"
+    comment_column: "justification"
+    source_document: sharepoint://Assurance/Payroll/IRAP-2026/SSP-Annex.xlsx

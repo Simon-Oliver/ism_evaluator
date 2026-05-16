@@ -1,0 +1,9 @@
+systems:
+  - id: test-system
+    system_name: Test System
+    description: This is a test system.
+#    tags:
+#      - test
+  - id: crm-system
+    system_name: CRM System
+    description: This is a CRM system.

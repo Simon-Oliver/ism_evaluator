@@ -1,0 +1,48 @@
+checks:
+  - id: chk-mfa-events-logged
+    type: kql
+    title: MFA sign-in events are centrally logged
+    ism_version: "2026.03.24"
+    controls:
+      - ism-1683
+    tags:
+      - default
+    query_file: data/queries/test_query.kql
+    scope_ref: log_analytics_workspace
+    assertion:
+      type: exists_any_row
+
+  - id: chk-powershell-events-logged
+    type: kql
+    title: PowerShell operational events are centrally logged
+    ism_version: "2026.03.24"
+    controls:
+      - ism-1623
+      - ism-1624
+    tags:
+      - default
+    query_file: data/queries/second_test.kql
+    scope_ref: log_analytics_workspace
+    assertion:
+      type: field_contains_all
+      field: EventID
+      values:
+        - 4103
+        - 4104
+  - id: tag-test
+    type: kql
+    title: Tag Test
+    ism_version: "2026.03.24"
+    controls:
+      - ism-1623
+      - ism-1624
+    tags:
+      - test
+    query_file: data/queries/tag_test.kql
+    scope_ref: log_analytics_workspace
+    assertion:
+      type: field_contains_all
+      field: EventID
+      values:
+        - 4103
+        - 4104
