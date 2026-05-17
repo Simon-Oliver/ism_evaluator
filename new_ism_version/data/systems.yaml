@@ -7,3 +7,6 @@ systems:
   - id: crm-system
     system_name: CRM System
     description: This is a CRM system.
+  - id: sys-payroll
+    system_name: A test payroll System
+    description: This is a payroll system.

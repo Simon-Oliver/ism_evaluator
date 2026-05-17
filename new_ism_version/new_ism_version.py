@@ -176,12 +176,43 @@ class QueryResult(BaseModel):
     rows: list[dict[str, Any]]
 
 
-# ------------- File loaders -------------
+# ------------- Helpers -------------
 
 def yaml_loader(path: str) -> dict:
     with open(path, "r") as f:
         return yaml.safe_load(f)
 
+BASE_DIR = Path(__file__).resolve().parent
+
+def resolve_path(path: str | Path) -> Path:
+    path = Path(path)
+    return path if path.is_absolute() else BASE_DIR / path
+
+
+def validate_references() -> None:
+    system_ids = {system.id for system in systems}
+    control_ids = {control.id for control in controls}
+
+    for assessment in assessments:
+        if assessment.system_id not in system_ids:
+            raise ValueError(f"Assessment {assessment.id} references unknown system {assessment.system_id}")
+
+    for evidence in manual_evidence:
+        for system_id in evidence.systems:
+            if system_id not in system_ids:
+                raise ValueError(f"Evidence {evidence.id} references unknown system {system_id}")
+        for control_id in evidence.controls:
+            if control_id not in control_ids:
+                raise ValueError(f"Evidence {evidence.id} references unknown control {control_id}")
+
+    for check in checks:
+        query_path = resolve_path(check.query_file)
+        if not query_path.exists():
+            raise ValueError(f"Check {check.id} references missing query file {check.query_file}")
+
+        for control_id in check.controls:
+            if control_id not in control_ids:
+                raise ValueError(f"Check {check.id} references unknown control {control_id}")
 
 # ------------- Load all yaml files -------------
 
@@ -193,6 +224,7 @@ manual_evidence = [ManualEvidence(**evidence) for evidence in
                    yaml_loader("./data/manual_evidence.yaml")["manual_evidence"]]
 checks = [Check(**check) for check in yaml_loader("./data/checks.yaml")["checks"]]
 
+validate_references()
 
 # ------------- Dummy KQL runner -------------
 
@@ -289,7 +321,7 @@ def results_from_assessment(assessment: Assessment) -> list[SystemControlResult]
                     source_name=assessment.type,
                     evaluated_on=assessment.assessed_on,
                     expires_on=assessment.expires_on,
-                    evidence_location=assessment.source_document,
+                    evidence_location=f"{assessment.source_document} | Evidence at row {reader.line_num}",
                     comment=comment,
                     details={
                         "assessment_type": assessment.type,
@@ -388,4 +420,4 @@ for evidence in manual_evidence:
 output.extend(results_from_checks(systems, checks))
 
 for res in output:
-    print(res.system_id, res.control_id, res.status, res.source_type)
+    print(res.system_id, res.control_id, res.status, res.source_type, res.evidence_location)
