@@ -1,3 +1,4 @@
+import argparse
 import json
 import re
 import zipfile
@@ -6,37 +7,44 @@ from io import BytesIO
 
 import requests
 
+
 CONTROL_ID_RE = re.compile(r"^ism-(\d{4})$", re.I)
 
-url = "https://api.github.com/repos/AustralianCyberSecurityCentre/ism-oscal/releases/latest"
+REPO = "AustralianCyberSecurityCentre/ism-oscal"
+GITHUB_API = f"https://api.github.com/repos/{REPO}"
 
-response = requests.get(url, timeout=30)
-response.raise_for_status()
 
-release = response.json()
+def get_release(version=None):
+    if version:
+        version = version if version.startswith("v") else f"v{version}"
+        url = f"{GITHUB_API}/releases/tags/{version}"
+    else:
+        url = f"{GITHUB_API}/releases/latest"
 
-zip_url = release["zipball_url"]
+    response = requests.get(url, timeout=30)
+    response.raise_for_status()
 
-zip_response = requests.get(zip_url, timeout=30)
-zip_response.raise_for_status()
+    return response.json()
 
-with zipfile.ZipFile(BytesIO(zip_response.content), "r") as archive:
-    names = archive.namelist()
 
-    catalog_name = next(
-        name for name in names
-        if name.endswith("/ISM_catalog.json")
-    )
+def get_catalog_from_release(release):
+    zip_url = release["zipball_url"]
 
-    with archive.open(catalog_name) as f:
-        data = json.load(f)
+    zip_response = requests.get(zip_url, timeout=30)
+    zip_response.raise_for_status()
 
-catalog = data.get("catalog")
-metadata = catalog.get("metadata", {})
+    with zipfile.ZipFile(BytesIO(zip_response.content), "r") as archive:
+        names = archive.namelist()
 
-print("Release:", release["tag_name"])
-print("Catalog version:", metadata.get("version"))
-print("Catalog published:", metadata.get("published"))
+        catalog_name = next(
+            name for name in names
+            if name.endswith("/ISM_catalog.json")
+        )
+
+        with archive.open(catalog_name) as f:
+            data = json.load(f)
+
+    return data["catalog"]
 
 
 def get_prop(control, name):
@@ -63,12 +71,12 @@ def get_part(control, name):
     return None
 
 
-def make_row(control, path):
+def make_row(control, path, release, metadata, downloaded_at):
     control_id = control.get("id", "")
     match = CONTROL_ID_RE.match(control_id)
 
     return {
-        "downloadedAt": datetime.now(timezone.utc).isoformat(),
+        "downloadedAt": downloaded_at,
 
         "sourceRelease": release.get("tag_name"),
         "catalogVersion": metadata.get("version"),
@@ -92,35 +100,83 @@ def make_row(control, path):
     }
 
 
-group_stack = [(group, []) for group in catalog.get("groups", [])]
-print("Group stack:", len(group_stack))
+def extract_controls(catalog, release, metadata, downloaded_at):
+    group_stack = [(group, []) for group in catalog.get("groups", [])]
+    ism_controls = []
 
-ism_controls = []
+    while group_stack:
+        group, path = group_stack.pop()
 
-while group_stack:
-    group, path = group_stack.pop()
+        title = group.get("title")
+        new_path = path + ([title] if title else [])
 
-    title = group.get("title")
-    new_path = path + ([title] if title else [])
+        for control in group.get("controls", []):
+            control_id = control.get("id", "")
+            control_class = control.get("class", "")
 
-    for control in group.get("controls", []):
-        control_id = control.get("id", "")
-        control_class = control.get("class", "")
+            if control_class == "ISM-control" or CONTROL_ID_RE.match(control_id):
+                ism_controls.append(
+                    make_row(
+                        control=control,
+                        path=new_path,
+                        release=release,
+                        metadata=metadata,
+                        downloaded_at=downloaded_at,
+                    )
+                )
 
-        if control_class == "ISM-control" or CONTROL_ID_RE.match(control_id):
-            ism_controls.append(make_row(control, new_path))
+        children = group.get("groups", [])
 
-    children = group.get("groups", [])
+        for child in children:
+            group_stack.append((child, new_path))
 
-    for child in children:
-        group_stack.append((child, new_path))
+    ism_controls.sort(key=lambda row: row["numericId"] or 0)
+
+    return ism_controls
 
 
-ism_controls.sort(key=lambda row: row["NumericId"] or 0)
+def write_jsonl(rows, output_path):
+    with open(output_path, "w", encoding="utf-8") as f:
+        for row in rows:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
-with open("ism_controls.jsonl", "w", encoding="utf-8") as f:
-    for control in ism_controls:
-        f.write(json.dumps(control, ensure_ascii=False) + "\n")
 
-print("Controls extracted:", len(ism_controls))
-print("Wrote: ism_controls.jsonl")
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--version",
+        help="Optional release version, for example v2026.03.24 or 2026.03.24",
+    )
+    parser.add_argument(
+        "--output",
+        default="ism_controls.jsonl",
+        help="Output JSONL file path",
+    )
+
+    args = parser.parse_args()
+
+    downloaded_at = datetime.now(timezone.utc).isoformat()
+
+    release = get_release(args.version)
+    catalog = get_catalog_from_release(release)
+    metadata = catalog.get("metadata", {})
+
+    print("Release:", release.get("tag_name"))
+    print("Catalog version:", metadata.get("version"))
+    print("Catalog published:", metadata.get("published"))
+
+    ism_controls = extract_controls(
+        catalog=catalog,
+        release=release,
+        metadata=metadata,
+        downloaded_at=downloaded_at,
+    )
+
+    write_jsonl(ism_controls, args.output)
+
+    print("Controls extracted:", len(ism_controls))
+    print("Wrote:", args.output)
+
+
+if __name__ == "__main__":
+    main()
