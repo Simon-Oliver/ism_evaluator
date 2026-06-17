@@ -37,6 +37,11 @@ output/
 *.xlsx
 *.xls
 *.pdf
+*.jsonl
+*.csv
+*.json
+
+data/ism_controls
 
 # Keep placeholder directories if needed
 !output/.gitkeep

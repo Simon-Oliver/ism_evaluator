@@ -4,9 +4,12 @@ import re
 import zipfile
 from datetime import datetime, timezone
 from io import BytesIO
-
 import requests
+import pathlib
 
+BASE_DIR = pathlib.Path(__file__).parent
+OUTPUT_DIR = BASE_DIR / "data" / "ism_controls"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 CONTROL_ID_RE = re.compile(r"^ism-(\d{4})$", re.I)
 
@@ -26,6 +29,11 @@ def get_release(version=None):
 
     return response.json()
 
+def get_all_releases():
+    url = f"{GITHUB_API}/releases"
+    response = requests.get(url, timeout=30)
+    response.raise_for_status()
+    return response.json()
 
 def get_catalog_from_release(release):
     zip_url = release["zipball_url"]
@@ -142,40 +150,28 @@ def write_jsonl(rows, output_path):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--version",
-        help="Optional release version, for example v2026.03.24 or 2026.03.24",
-    )
-    parser.add_argument(
-        "--output",
-        default="ism_controls.jsonl",
-        help="Output JSONL file path",
-    )
-
-    args = parser.parse_args()
-
     downloaded_at = datetime.now(timezone.utc).isoformat()
 
-    release = get_release(args.version)
-    catalog = get_catalog_from_release(release)
-    metadata = catalog.get("metadata", {})
+    releases = get_all_releases()
 
-    print("Release:", release.get("tag_name"))
-    print("Catalog version:", metadata.get("version"))
-    print("Catalog published:", metadata.get("published"))
+    for release in releases:
+        catalog = get_catalog_from_release(release)
+        metadata = catalog.get("metadata", {})
 
-    ism_controls = extract_controls(
-        catalog=catalog,
-        release=release,
-        metadata=metadata,
-        downloaded_at=downloaded_at,
-    )
+        print("Release:", release.get("tag_name"))
+        print("Catalog version:", metadata.get("version"))
+        print("Catalog published:", metadata.get("published"))
 
-    write_jsonl(ism_controls, args.output)
+        ism_controls = extract_controls(
+            catalog=catalog,
+            release=release,
+            metadata=metadata,
+            downloaded_at=downloaded_at,
+        )
 
-    print("Controls extracted:", len(ism_controls))
-    print("Wrote:", args.output)
+        write_jsonl(ism_controls, OUTPUT_DIR / f"ism_controls_{metadata.get("version")}.jsonl")
+
+        print("Controls extracted:", len(ism_controls))
 
 
 if __name__ == "__main__":
